@@ -1,0 +1,21 @@
+StudentID,Fullname,Race,Gender,Country,Age,Math,Physics,Chemistry,Date
+1,James Zhang,A,Male,US,23,73,70,87,10/31/2008
+2,Wilson Li,E,Female,UK,26,95,76,83,3/16/2008
+3,Richard Nuan Ye,A,Male,UK,35,77,83,92,5/22/2008
+4,Mary Deng,E,Female,US,21,60,99,84,1/24/2009
+5,Jason Wilson,A,Male,UK,19,77,89,93,7/30/2009
+6,Jennifer Hopkin,A,Female,UK,43,79,64,83,4/5/2009
+7,Kari Gjendem,E,Female,US,37,87,99,67,11/24/2008
+8,Wenche Dale,E,Female,US,28,95,87,93,10/2/2008
+9,Jane Larsen,A,Female,US,19,73,92,84,6/5/2009
+10,Steinar Hansen,A,Male,US,25,66,93,65,8/1/2008
+11,Michael Chen,A,Male,UK,42,83,90,77,10/24/2008
+12,Josef Curton,E,Male,US,32,71,63,96,11/8/2009
+13,Jennifer Jones,E,Male,US,27,79,76,82,10/29/2008
+14,Gary Grant,E,Female,UK,35,90,78,92,10/24/2008
+15,Phil Yao,A,Male,UK,21,69,69,83,10/15/2008
+16,Nora Spears,E,Female,US,29,79,83,76,3/11/2009
+17,Goril Nordmann,A,Female,UK,36,91,79,69,5/24/2008
+18,Lisa Bondvik,E,Female,US,39,65,73,87,7/9/2009
+19,Guri Olsen,E,Female,US,24,87,72,89,8/12/2009
+20,Martin Jones,A,Male,US,25,82,73,62,3/27/2008
