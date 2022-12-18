@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by Wei Zhang
+#by https://www.youtube.com/@easydatascience2508
 #Section 5: Using R graphic with ggplot2
 #------------------------------------------------------------#
 setwd("d:/")   # to set working directory

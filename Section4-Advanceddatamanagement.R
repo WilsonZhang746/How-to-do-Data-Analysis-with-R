@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by Wei Zhang
+#by https://www.youtube.com/@easydatascience2508
 #Section 4: Advanced data management
 setwd("d:/")   # to set working directory
 ##set colClasses in read.table() to create a data frame

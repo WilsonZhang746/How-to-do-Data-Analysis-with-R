@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by Wei Zhang                        
+#by https://www.youtube.com/@easydatascience2508                        
 #Section 1: Get started with R environment                                    
 #------------------------------------------------------------#
 
