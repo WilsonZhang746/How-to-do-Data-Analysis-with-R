@@ -2,6 +2,8 @@
 #by https://www.youtube.com/@easydatascience2508
 #Section 5: Using R graphic with ggplot2
 #------------------------------------------------------------#
+
+
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 ##set colClasses in read.table() to create a data frame
 vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
@@ -13,10 +15,10 @@ Income$Region<-as.factor(Income$Region)
 Income$Married<-as.factor(Income$Married)
 Income$Job<-as.factor(Income$Job)
 
-# -- Section 4.1 Creating a graph with ggplot2
+# --  Creating a graph with ggplot2
 library(ggplot2)
 
-##Start building graph
+## 1. Start building graph
 # x axis: years of experience, y-axis: salary
 ggplot(data = Income, mapping = aes(x = Years, y = Salary))
 
@@ -27,9 +29,10 @@ ggplot(data = Income, mapping = aes(x = Years, y = Salary))
 
 
 
-##Add geoms_ in ggplot()
+##2. Add geoms_ in ggplot()
 #add a scatter plot of Years and Salary
-ggplot(data = Income, mapping = aes(x = Years, y = Salary)) + geom_point()
+ggplot(data = Income, mapping = aes(x = Years, y = Salary)) + 
+  geom_point()
 
 
 # using optional point color, transparency, and point size
@@ -51,7 +54,7 @@ ggplot(data = Income,
 
 
 
-##Using Grouping in ggplot2
+## 3. Using Grouping in ggplot2
 # using different point shape, color and line type
 # for male and female.
 ggplot(data = Income, 
@@ -61,6 +64,14 @@ ggplot(data = Income,
   geom_smooth(method = "lm", se = FALSE, size = 1.5) +
   theme_bw()
 
+#By default, the first group (female) is represented by pinkfilled 
+#circles and a solid pink line, while the second group (male) is 
+#represent by teal-filled triangles and a dashed teal(green/blue) 
+#line. Note that the color=Gender, shape=Gender, and 
+# linetype=Gender options are placed in the aes() function
+#because we are mapping a variable to an aesthetic. The geom_smooth 
+#option (se = FALSE) was added to suppresses the confidence intervals,
+#making the graph less busy and easier to read. 
 
 
 
@@ -69,7 +80,8 @@ ggplot(data = Income,
 
 
 
-##Using Scales in ggplot2
+
+##4. Using Scales in ggplot2
 # change the x- and y-axis scaling and the 
 #colors representing males and females
 ggplot(data = Income,
@@ -107,7 +119,7 @@ ggplot(
 
 
 
-##Using facets in ggplot2
+##5. Using facets in ggplot2
 # colors representing males and females
 # and Salaries are printed in dollar format from scale package.
 #facet used for different occupations.
@@ -134,7 +146,7 @@ ggplot(
 
 
 
-##Formatting labels
+##6. Formatting labels
 # separate graphs (facets) for each of five occupations
 # formatting titles, subtitle, legend, caption.
 ggplot(
@@ -149,8 +161,8 @@ ggplot(
   scale_color_manual(values = c("indianred3","cornflowerblue")) +
   facet_wrap(~Job) +
   labs(title = "Relationship between Years of experience and Salary",
-       subtitle = "A udemy course for R beginner",
-       caption = "source: http://www.udemy.com/",
+       subtitle = "A youtube course for R beginner",
+       caption = "source: http://www.youtube.com/@easydatascience2508",
        x = " Years of Experience",
        y = "Yearly Income",
        color = "Gender", shape = "Gender", linetype = "Gender") +
@@ -166,7 +178,7 @@ ggplot(
 
 
 
-## Formulate themes in ggplot()
+## 7. Formulate themes in ggplot()
 #a theme that produced a white background and 
 #light grey reference lines
 
@@ -196,7 +208,7 @@ ggplot(data = Income,
 
 
 
-##ggplot2 graph as an object
+##8. ggplot2 graph as an object
 #Income<-Income[Income$Salary<40,]
 #step 1 to plot a scatter plot
 plot1<-ggplot(data = Income, mapping = aes(x = Years, y = Salary)) + geom_point(size = 3, color = "blue")
@@ -211,7 +223,7 @@ plot2   #to pring plot2
 
 
 
-##Saving graphs
+##9. Saving graphs
 ggsave(file="testgraph.png", plot=plot2, width=5, height=4)
 
 
@@ -224,7 +236,7 @@ ggsave(file="testgraph.png", plot=plot2, width=5, height=4)
 
 
 
-##Bar charts
+##10.Bar charts
 library(ggplot2)
 options(digits = 2)  #set the number of digits printed
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
@@ -279,7 +291,7 @@ ggplot(grade, aes(x=Gender, fill=Country)) +
 
 
 
-## Pie charts  
+## 11. Pie charts  
 #install packages 'ggpie'
 #if devtools not installed, should install devtools first
 #not work under R-3.5.2
@@ -309,7 +321,14 @@ ggpie(grade, Country, Gender,
 
 
 
-##Histograms
+
+
+
+
+
+
+
+##12. Histograms
 library(ggplot2)
 library(scales)
 #simple histogram
@@ -341,7 +360,7 @@ ggplot(grade, aes(x=Physics, y=..density..)) +
 
 
 
-###Boxplots
+### 13. Boxplots
 #a simple box plot
 library(ggplot2)
 ggplot(mtcars, aes(x="", y=mpg)) +
@@ -386,7 +405,7 @@ ggplot(cars, aes(x=Cylinders, y=cty, fill=Year)) +
 
 
 
-###Kernel density plots
+###14. Kernel density plots
 library(ggplot2)
 data(mpg)
 cars2008 <- mpg[mpg$year == 2008, ]
@@ -439,7 +458,7 @@ ggplot(cars2008, aes(x=cty, fill=Cylinders)) +
 
 
 
-###Violin plots
+### 15.Violin plots
 #Creating basic Violin Plots
 # load library ggplot2
 library(ggplot2)
@@ -499,7 +518,7 @@ ggplot(diamonds, aes(x=cut, y=price)) +
 
 
 
-### Scatter plots
+### 16.Scatter plots
 library(ggplot2)
 
 #Simple scatterplot
@@ -570,11 +589,6 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 
 
 
-#geom_smooth() function to represent a regression 
-#line and smoothen the visualization. 
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
-  geom_point() +
-  geom_smooth()
 
 
 
@@ -585,7 +599,8 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 
 
 
-###Dot plots
+
+### 17.Dot plots
 #using dotchart function in R
 month <- month.name
 expected <- c(15, 16, 20, 31, 11, 6,
@@ -672,7 +687,7 @@ ggplot(plotdata, aes(x=meanHwy, y=reorder(model, meanHwy))) +
 
 
 
-###Stem and Leaf Plots
+### 18. Stem and Leaf Plots
 #a Stem and leaf plot for a simple data
 score <-c(74, 83, 77, 86, 65, 59, 96, 78, 80, 92)
 stem(score)
@@ -722,7 +737,7 @@ stem(ChickWeight$weight, width = 20)
 
 
 
-### treemap
+### 19. treemap
 # install.packages("treemapify") , if you have not done yet
 
 # Simple Tree Map
@@ -749,11 +764,11 @@ plotdata <- mpg %>%
   count(manufacturer, drv)
 plotdata
 
-plotdata$drv <- factor(plotdata$drv, 
-                       levels=c("4", "f", "r"),
-                       labels=c("4-wheel", "front-wheel", "rear"))
+#plotdata$drv <- factor(plotdata$drv, 
+##                       levels=c("4", "f", "r"),
+#                      labels=c("4-wheel", "front-wheel", "rear"))
 
-plotdata
+#plotdata
 
 ggplot(plotdata,
        aes(fill = manufacturer, 
@@ -771,6 +786,115 @@ ggplot(plotdata,
                     place = "centre",
                     grow=FALSE) +
   theme(legend.position = "none")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 20. Lollipop Plot
+
+#Creating basic lollipop Plot
+# Create sample data
+set.seed(5642)                             
+sample_data <- data.frame(name=c("Wilson","Dudu",
+                                 "Maomao","Miaomiao",
+                                 "Mico","Mia") ,
+                          
+                          value=c(32,20,22,12,7,3)) 
+sample_data
+
+# Load ggplot2 
+library("ggplot2") 
+# Create lollipop plot
+ggplot(sample_data, aes(x=name, y=value)) +
+  geom_segment( aes(x=name, xend=name, y=0, yend=value)) +
+  geom_point(size=4)
+
+
+
+
+#Add annotation to lollipop plot
+
+
+# Create lollipop plot with annotations
+ggplot(sample_data, aes(x=name, y=value)) +
+  geom_segment( aes(x=name, xend=name, y=0, yend=value)) +
+  geom_point(size=4) +
+  geom_label(aes(name, value , label = signif(value)), 
+             colour = "darkred", nudge_x = 0.35, size = 4)
+
+
+
+
+# Customize the Plot
+
+# Create lollipop plot with custom colors
+ggplot(sample_data, aes(x=name, y=value)) +
+  geom_segment( aes(x=name, xend=name, y=0, yend=value), 
+                color="red", size=3) +
+  geom_point( color="green", size=10)
+
+
+
+
+
+
+
+
+
+
+
+### 21. Diverging bar chart
+library(ggplot2)
+# Data Preparation
+data("swiss")
+theme_set(theme_bw())
+
+
+# create new column for Provences
+swiss$Provence <- rownames(swiss)
+
+# compute normalized Education
+swiss$Education_z <- round((swiss$Education -
+                    mean(swiss$Education))/sd(swiss$Education), 2)
+
+# above / below avg flag
+swiss$Education_type <- ifelse(swiss$Education_z < 0,
+                               "below", "above")
+
+# sort by Education_type
+swiss <- swiss[order(swiss$Education_z), ]
+
+
+# convert to factor to retain sorted order in plot.
+swiss$Provence <- factor(swiss$Provence,
+                           levels = swiss$Provence)
+
+
+
+# Diverging Barcharts
+ggplot(swiss, aes(x=`Provence`, y=Education_z, label="Relative Score in
+        Education")) +
+     geom_bar(stat='identity', aes(fill=Education_type), width=.5) + 
+     scale_fill_manual(name="Education Level in Years",
+            labels = c("Above Average", "Below Average"),
+            values = c("above"="#00ba38", "below"="#f8766d")) +
+    theme(text = element_text(size=08)) +
+    labs(subtitle="Education Levels by Provence",
+       title= "Diverging Bars") +
+    coord_flip()
 
 
 
