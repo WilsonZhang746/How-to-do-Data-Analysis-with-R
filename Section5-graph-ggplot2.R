@@ -901,3 +901,62 @@ ggplot(swiss, aes(x=`Provence`, y=Education_z, label="Relative Score in
 
 
 
+
+
+
+
+
+
+
+
+### Lecture 22. Nested Pie Chart using plotly
+
+
+# load library plotly
+# to install plotly 
+#install.packages("plotly")
+library(plotly)     
+
+# create data frame
+sample_data <- data.frame(company= c('Company1', 'Company2',
+                                   'Company3', 'Company4','Company5'),
+                          value= c(25,20,15,25,15))
+
+# create pie chart using plot_ly() function
+plot_ly(sample_data) %>%
+  add_pie(sample_data, labels = ~`company`, values = ~`value`)
+
+
+
+
+##Create a Donut chart:
+# create sample data frame
+sample_data <- data.frame(company= c('Company1', 'Company2',
+                                     'Company3', 'Company4','Company5'),
+                          value= c(25,20,15,25,15))
+# create donut chart using plot_ly() function
+plot_ly(sample_data) %>%
+  add_pie(sample_data, labels = ~`company`, values = ~`value`,
+          type = 'pie', hole = 0.5)
+
+
+
+
+# create sample data frame
+sample_data <- data.frame(company= c('Company1', 'Company2', 'Company3', 'Company4','Company5'),
+                          value1= c(25,30,20,25,40),value2= c(15,40,10,35,34))
+
+# create pie chart using plot_ly() function
+plot_ly(sample_data) %>%
+  add_pie(labels = ~`company`, values = ~`value1`,
+          type = 'pie', hole = 0.7, sort = F,
+          marker = list(line = list(width = 2))) %>%
+  add_pie(sample_data, labels = ~`company`, values = ~`value2`,
+          domain = list(
+            x = c(0.15, 0.85),
+            y = c(0.15, 0.85)),
+          sort = F)
+
+
+
+
