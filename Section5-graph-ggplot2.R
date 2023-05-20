@@ -960,3 +960,45 @@ plot_ly(sample_data) %>%
 
 
 
+
+
+
+
+
+
+
+
+
+### Lecture 23. Bubble plots
+library(ggplot2)
+library(RColorBrewer)
+
+data("mtcars")
+df <- mtcars
+df$cyl <- as.factor(df$cyl)
+head(df)
+
+#point relationship between wt and mpg, different cyl shown in
+#different color, bubble size by qsec
+#manually set color
+ggplot(df, aes(x = wt, y = mpg)) +
+  geom_point(aes(color = cyl, size = qsec), alpha = 0.5) +
+  scale_color_manual(values = c("#00bb06", "#E7B800", "#FC4E07")) + 
+  scale_size(range = c(0.4, 12))  #change point size
+
+
+
+#point relationship between wt and mpg, different cyl shown in
+#different color, bubble size by qsec
+#using predefined color palette
+ggplot(df, aes(x = wt, y = mpg)) +
+  geom_point(aes(color = cyl, size = qsec), alpha = 0.5) +
+  scale_color_brewer(palette="Spectral") +     
+  scale_size(range = c(0.4, 12))            #change point size
+
+
+
+
+
+
+
