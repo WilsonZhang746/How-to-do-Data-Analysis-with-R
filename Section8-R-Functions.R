@@ -81,3 +81,128 @@ signif(a4)
 
 signif(a3,5)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 2. reshape data cbind() rbind() merge() melt() dcast()
+
+#Transpose of a Matrix
+# The t() function takes a matrix or data frame as an input 
+# and gives the transpose of that matrix or data frame as it’s output.
+
+# transpose of a matrix
+
+test_mtx <- matrix(c(1:10), nrow=5, byrow=TRUE)
+test_mtx
+
+test_tmtx <- t(test_mtx)
+print("Transpose of the Matrix")
+test_tmtx
+
+
+# transpose of a dataframe
+data(mtcars)
+test_df <- mtcars[1:4, 1:4]
+test_df 
+
+test_tdf <- t(test_df)
+print("Transpose of a dataframe")
+test_tdf
+
+
+# Joining Rows and Columns of Data Frames
+# Cbind and Rbind function in R
+name<- c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Mia")
+age <- c(32, 20, 22, 12,8,3)
+address <- c("Aukra", "Hustadvika", "Hustadvika", "Molde","Molde","Molde")
+
+# Cbind function
+family <- cbind(name, age, address)
+print("Combining vectors into data frame using cbind ")
+print(family)
+
+# creating new data frame
+Jiangjiang <- data.frame(name=c("Jiangjiang", "Gangdu"),
+                         age= c(16,18),
+                         address = c("Aukra","Molde"))
+
+Jiangjiang
+
+# Rbind function
+info <- rbind(family, Jiangjiang)
+print("Combining data frames using rbind ")
+print(info)
+
+
+
+# Merging two data frames in R
+name<- c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Mia")
+age <- c(32, 20, 22, 12,8,3)
+address <- c("Aukra", "Hustadvika", "Hustadvika", "Molde","Molde","Molde")
+
+
+total <- merge(family, Jiangjiang, all=TRUE)
+print(total)
+
+
+family_data1 <- data.frame(name,age)
+family_data1
+family_data2 <- data.frame(name,address)
+family_data2
+
+merge(family_data1, family_data2)
+merge(family_data1, family_data2, all = TRUE)
+
+
+# melt and cast
+library(MASS)
+library(reshape2)
+
+names(airquality) <- tolower(names(airquality))
+head(airquality)    #wide form
+
+#melting from wide form to long form
+aql <- melt(airquality, id.vars = c("month", "day"))
+head(aql)
+
+aql <- melt(airquality, id.vars = c("month", "day"),
+            variable.name = "climate_variable", 
+            value.name = "climate_value")
+head(aql)
+
+
+#casting from long form to wide form
+aql <- melt(airquality, id.vars = c("month", "day"))    #long form
+head(aql)
+aql
+
+aqw <- dcast(aql, month + day ~ variable)
+head(aqw)        #wide form again
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
