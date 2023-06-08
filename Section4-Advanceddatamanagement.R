@@ -1,7 +1,7 @@
 #course: Beginning using R for data analysis
 #by https://www.youtube.com/@easydatascience2508
 #Section 4: Advanced data management
-setwd("d:/")   # to set working directory
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
 ##set colClasses in read.table() to create a data frame
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
@@ -24,6 +24,10 @@ round(15.3456, digits=2)       #returns 15.35
 log(10)    #returns  2.302585
 #Exponential function
 exp(2.3085)      #returns  10.06
+
+
+
+
 
 
 
@@ -54,6 +58,12 @@ diff(x)    #a vector of 99 element 1
 quantile(x, probs=0.7)    #around 70
 
 
+
+
+
+
+
+
 ##Probability functions
 # generate and plot normal distributed variables 
 library(ggplot2)
@@ -65,7 +75,6 @@ ggplot(data, aes(x, y)) +
   labs(x = "sequential numbers",
        y = "Normal variate") +
   scale_x_continuous(breaks = seq(-10, 10, 1))
-
 #the area under the standard normal curve to the left of z=1.25?
 pnorm(1.25)     #0.894
 #the value of the 60th percentile of a normal distribution 
@@ -124,6 +133,8 @@ strsplit("easy", "")   #returns "e" "a" "s" "y"
 
 
 
+
+
 ##Using apply function
 #using apply() to rows and columns of a matrix
 test <- matrix(rnorm(20), nrow = 4)
@@ -134,9 +145,14 @@ apply(test, 2, mean, trim = 0.2) #trimmed column mean
 
 
 
+
+
+
+
+
 ## A solution to the working example
 options(digits = 2)  #set the number of digits printed
-setwd("d:/")   # to set working directory
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
 #create a grade data frame
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
@@ -167,6 +183,16 @@ grade <- grade[order(Last, First), ]
 grade
 
 
+
+
+
+
+
+
+
+
+
+
 ##Control flow
 #for loop
 for (i in 1:3) print("I love R")
@@ -178,6 +204,37 @@ while (i > 0) {print("I love R")
 #Conditional execution
 #if-else control structure
 #transform variable Race as a factor if it element is character. 
+options(digits = 2)  #set the number of digits printed
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+#create a grade data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+
+test <- scale(grade[, 7:9])    #standardize test score
+score <- apply(test, 1, mean) #get mean of score for each student
+grade <- cbind(grade, score)
+
+#to create a grade (A, B, C,D, E) 
+q <- quantile(score, c(.8, .6, .4, .2))
+grade$grade <- NA
+grade$grade[score >= q[1]] <- "A"
+grade$grade[score < q[1] & score >= q[2]] <- "B"
+grade$grade[score < q[2] & score >= q[3]] <- "C"
+grade$grade[score < q[3] & score >= q[4]] <- "D"
+grade$grade[score < q[4]] <- "F"
+
+#separate Fullname as two new variables First and Last
+#order student by their Lastname and Firstname
+Fullname <- strsplit((grade$Fullname), " ")
+Last <- sapply(Fullname, "[", 2)
+First <- sapply(Fullname, "[", 1)
+grade <- cbind(First, Last, grade[, -2])
+grade <- grade[order(Last, First), ]
+
+grade
+
 if (is.character(grade$Race)) grade$Race <- as.factor(grade$Race)
 #transform grade variable to factor if it is not.
 if (!is.factor(grade$grade)) { 
@@ -203,8 +260,15 @@ for (i in countries) {
 }
 
 
+
+
+
+
+
+
 ##creating your own functions
 #to create a function for statistics
+#mad() to calculate the median of the absolute deviation from median
 sumfunc <- function(x, par = TRUE, print = FALSE) {
   if (par) {
     cen <- mean(x)
@@ -230,6 +294,10 @@ y <- sumfunc(x, print=TRUE)
 
 
 
+
+
+
+
 ##Transposing a dataset
 test <- grade[1:5, 7:9]
 test
@@ -239,8 +307,14 @@ t(test)
 
 
 
+
+
 ## Aggregating data 
-options(digits = 3)
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+#create a grade data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
 test<-grade[,c(4,5,7:9)]
 test$Gender<-as.factor(test$Gender)
 test$Country<-as.factor(test$Country)
@@ -258,12 +332,110 @@ agg
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 ##Descriptive statistics with summary()
 vars <- c("Math", "Physics", "Chemistry")
 summary(grade[vars])
+
 
 
 ##Descriptive statistics via describe() in the Hmisc package
 library(Hmisc)
 vars <- c("Math", "Physics", "Chemistry")
 describe(grade[vars])
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 13. Using sample() to generate a set of sample data
+
+#Example 1:
+
+# Create sample of 20 random integers from a vector
+#with replacement
+x <- sample(1:1000, 20, replace=TRUE)
+
+print(x)
+
+
+#example 2
+#sample range lies between 1 to 5
+x<- sample(1:5)
+#prints the samples
+x
+
+
+
+#example 3
+#sample n numbers, where n larger than length of source vector
+x<- sample(1:5,10,replace=TRUE)
+#prints the samples
+x
+
+
+
+#set.seed() - set.seed function will produce the same sequence 
+#when you run it.
+
+
+#example 4
+# Create sample of 20 observations from mtcars dataframe
+#with replacement
+
+row_vec <- sample(1:nrow(mtcars), 20, replace = TRUE)
+
+row_vec
+print(mtcars[row_vec, ])
+
+
+
+set.seed(1234)
+row_vec <- sample(1:nrow(mtcars), 20, replace = TRUE)
+
+row_vec
+print(mtcars[row_vec, ])
+
+
+
+#example 5
+#creates a probability of 80% good watches an 20% effective watches.
+sample (c('Good','Defective'), size=10, replace=T, prob=c(.80,.20))
+
+  
+
+
+
+#sample n numbers, where n larger than length of source vector
+x<- sample(1:5,10,replace=TRUE)
+#prints the samples
+x
+
+
+set.seed(1234)
+row_vec <- sample(1:nrow(mtcars), 20, replace = TRUE)
+
+row_vec
+print(mtcars[row_vec, ])
+
+
+
+

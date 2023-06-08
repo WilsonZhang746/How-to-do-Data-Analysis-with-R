@@ -354,3 +354,177 @@ head(test_wide)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Example 6. Applying a Function to Columns
+
+###1. for matrix, using apply() function
+
+sample_matrix <- matrix(C<-(1:30),nrow=3, ncol=10)
+
+print( "sample matrix:")
+sample_matrix
+
+# use apply() function across column to find mean
+print("mean across columns:")
+apply( sample_matrix, 2, mean)
+
+
+
+## 2.for dataframe, using lapply() function
+#result returned as a list
+
+
+# create sample data
+familymember <- data.frame(
+  FirstName=c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Miaomiao"),
+  Income=c(300, 500, 200, 600,300,600),
+  Cost=c(200, 250, 100, 380,150,320))
+
+print(familymember)
+
+# apply lapply() function to the last two columns
+print("data after lapply():")
+lapply(familymember[,2:3], mean)
+
+result_list <- lapply(familymember[,2:3], mean)
+
+##3. for dataframe, using sapply() function
+# result returned as vector/matrix type
+familymember <- data.frame(
+  FirstName=c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Miaomiao"),
+  Income=c(300, 500, 200, 600,300,600),
+  Cost=c(200, 250, 100, 380,150,320))
+
+print(familymember)
+
+# apply sapply() function
+print("data after sapply():")
+
+#sapply for each column
+sapply(familymember, max)
+
+#sapply for the last two columns
+sapply(familymember[,2:3], max)
+
+
+## 4. for dataframe, using map_df() from purrr package
+# result returned as a dataframe
+
+library(purrr)
+
+familymember <- data.frame(
+  FirstName=c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Miaomiao"),
+  Income=c(300, 500, 200, 600,300,600),
+  Cost=c(200, 250, 100, 380,150,320))
+
+print(familymember)
+
+#max of each column
+result_df <- map_df(familymember,max)
+
+
+result_df 
+
+#max of the last two columns
+result_df <- map_df(familymember[,2:3],max)
+result_df 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 7. Flatten a List to a Vector using unlist() Function in R
+
+
+#Example1: Converting list  into a single vector
+
+# R  program to illustrate
+# converting list to vector
+
+# Creating a list.
+my_list <- list(l1 = c(1, 3, 5, 7),                
+                l2 = c(1, 2, 3),                    
+                l3 = c(1, 1, 10, 5, 8, 65, 90))   
+
+
+# Apply unlist R function
+print(unlist(my_list))  
+
+
+#Example 2: Unlisting list with dataframe:
+  
+# R program to illustrate
+# Unlisting list with data frame
+  
+# Creating a list.
+list2 <- list(l1 = c(32, 20, 10, 7,3),                
+                  l2 = c(19, 19, 32,28),                    
+                  l3 = c(39, 1, 10, 5, 8, 69, 68))   
+
+
+
+# Add a data frame to the list                              
+list2[[4]] <- data.frame(v1 = c(10, 20, 30),       
+                        v2 = c(14,15, 26))
+
+# Unlist list with data.frame
+
+print(unlist(list2,use.names = FALSE))
+vec1<-unlist(list2,use.names = FALSE)
+
+#unlist part of a list
+print(unlist(list2[[4]],use.names = FALSE))
+
+
+
+#Example 3: apply a function after unlisting
+
+mean(unlist(list2))
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1480,3 +1480,316 @@ data %>%
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 20. Union() & union_all() functions to combine dataframes
+
+#example 1
+# create dataframe familymember1 
+familymember1=data.frame(id=c(1,2,3,4),
+                         name=c('Wilson','Shirley','Dudu','Maomao'))
+
+# create dataframe familymember2
+familymember2=data.frame(id=c(1,2,3,4,5,6,7),
+                         name=c('Wilson','Shirley','Dudu',
+                                'Maomao','Miaomiao','Mico','Mia'))
+
+# display data1
+print(familymember1)
+
+# display data2
+print(familymember2)
+
+
+library(dplyr)
+
+# union of the two dataframes
+print(union(familymember1,familymember2))
+
+
+# union_all of the two dataframes with different columns
+print(union_all(familymember1,familymember2))
+
+
+
+# example 2. create dataframes with different columns
+familymember1=data.frame(id=c(1,2,3,4),
+                         name=c('Wilson','Shirley','Dudu',                                'Maomao'),
+                         age =c(32,33,20,22))
+
+
+familymember2=data.frame(id=c(1,2,3,4,5,6,7),
+                         name=c('Wilson','Shirley','Dudu',
+                                'Maomao','Miaomiao','Mico','Mia'))
+                         
+# display data1
+print(familymember1)
+
+# display data2
+print(familymember2)
+
+
+# union of the two dataframes
+print(union(familymember1,familymember2))   #error
+
+
+
+# union_all of the two dataframes
+print(union_all(familymember1,familymember2))    #error
+
+
+
+
+
+# example 3. create dataframes with same columns but different values
+familymember1=data.frame(id=c(1,2,3,4),
+                         name=c('Wilson','Shirley','Dudu',
+                                'NA'))
+                         
+
+
+familymember2=data.frame(id=c(1,2,3,4,5,6,7),
+                         name=c('Wilson','Shirley','Dudu',
+                                'Maomao','Miaomiao','Mico','Mia'))
+
+
+# display data1
+print(familymember1)
+
+# display data2
+print(familymember2)
+
+
+# union_all of the two dataframes
+print(union(familymember1,familymember2))
+
+
+
+# union_all of the two dataframes with different columns
+print(union_all(familymember1,familymember2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 21. cumall(), cumany() & cummean() 
+
+#cumall()
+#This function will check whether the first element is TRUE. 
+#if yes, then it will return TRUE otherwise FALSE and  
+#Then it checks whether the first element  AND the second 
+#element are TRUE if yes, then it will return TRUE otherwise FALSE. 
+#It will go on till the last logical operator in a vector and 
+#return the results.
+
+
+# load the dplyr library
+library("dplyr")
+
+# create logical vector, matrix
+test_vector <- c(TRUE, TRUE, TRUE, FALSE,
+             FALSE, FALSE, TRUE, TRUE, 
+             FALSE, FALSE, TRUE, FALSE, TRUE,
+             FALSE, TRUE, FALSE)
+
+test_matrix <- matrix(data=test_vector,nrow =4)
+
+# display vector and matrix
+print(test_vector)
+print(test_matrix)
+
+# cumall()
+print(cumall(test_vector))
+
+print(cumall(test_matrix))
+
+
+
+#cumany()
+#This function will check whether the first element is TRUE.
+#if yes, then it will return TRUE otherwise FALSE and  Then 
+#it checks whether the first element  AND  the second element
+#are TRUE if anyone is TRUE, then it will return TRUE otherwise
+#FALSE. It will go on till the last logical operator in a vector 
+#and return the results.
+
+
+# load the dplyr library
+library("dplyr")
+
+# create logical vector, matrix
+test_vector <- c(TRUE, TRUE, TRUE, FALSE,
+                 FALSE, FALSE, TRUE, TRUE, 
+                 FALSE, FALSE, TRUE, FALSE, TRUE,
+                 FALSE, TRUE, FALSE)
+
+test_matrix <- matrix(data=test_vector,nrow =4)
+
+# display vector and matrix
+print(test_vector)
+print(test_matrix)
+
+
+# apply cumany()
+print(cumany(test_vector))
+
+print(cumany(test_matrix))
+
+#cummean()
+#This function is applied to the numeric vector which will
+#return the cumulative average or mean values for all the 
+#elements in a vector by analyzing two cumulative elements.
+
+
+# load the dplyr library
+library("dplyr")
+
+# create  vector, matrix
+test_vector <- c(32,20,22,10,7,3,69,68,25,24,17,14,20,121,708,819)
+test_matrix <- matrix(data=test_vector,nrow =4)
+
+# display vector, matrix
+print(test_vector)
+print(test_matrix)
+
+# apply cummean()
+print(cummean(test_vector))
+
+print(cummean(test_matrix))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 22. Create, modify, and delete columns 
+### using mutate() of dplyr package in R
+
+#Create new columns
+#Columns can be inserted either by appending a new column or 
+#using existing columns to evaluate a new column. By default, 
+#columns are added to the far right. Although columns can be 
+#added to any desired position using .before and .after arguments
+
+#R version > 4 suggested
+library(dplyr)    # OR library(tidyverse) if you have installed
+
+# create a data frame
+familymember <- data.frame(
+      FirstName=c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Miaomiao"),
+      Income=c(300, 500, 200, 600,300,600),
+      Cost=c(200, 250, 100, 380,150,320))
+
+print(familymember)
+
+# adding new columns
+familymember <- mutate(familymember, Age=c(32, 22, 20, 10,7,3), Saving=Income - Cost)
+
+print(familymember)
+
+# adding a new column before FirstName
+familymember <- mutate(familymember, Title=c("Mr", "Mr", "Ms", "Ms","Mr","Ms"), .before=FirstName)
+print(familymember)
+
+# adding a new column after FirstName
+familymember <- mutate(familymember, LastName=c("Zhang", "Zhang", "Yue", "Yue","Zhang","Zhang"),
+            .after=FirstName)
+
+print(familymember)
+
+
+
+#Delete Columns
+#Columns can be deleted from the existing data frame by 
+#setting the value of the desired column to NULL.
+
+# Delete 'Saving' column
+familymember <- mutate(familymember,Saving = NULL)
+
+print(familymember)
+
+
+
+#Modify Columns
+#Existing columns can be modified by assigning new values 
+#to desired columns.
+
+# Modify 'Income' column
+familymember <- mutate(familymember, 
+              Income=c(320, 600, 280, 580,360,580))
+
+print(familymember)
+
+
+#apply the same function to multiple columns in a data frame
+#mutate_all to Add New Fields All at Once
+#create 6 columns square root simultaneously. 
+msleep <- ggplot2::msleep
+names(msleep)
+
+msleep_sqr <- mutate_all(msleep[,6:11],
+              funs("square root" = sqrt( . )))
+names(msleep_sqr)
+str(msleep_sqr)
+
+
+
+#Applying Different Functions to Different Columns
+#using mutate_at()
+
+df <- data.frame(col1 = runif(10),
+                 col2 = runif(10),
+                 col3 = runif(10))
+
+#applying the logarithm function to columns 1 and 3
+#and applying the square root function to column 2
+df_log_sqrt <- df %>% 
+  mutate_at(c(1, 3), ~ log(.)) %>% 
+  mutate_at(2, ~ sqrt(.))
+
+
+df_log_sqrt
+
+
+
