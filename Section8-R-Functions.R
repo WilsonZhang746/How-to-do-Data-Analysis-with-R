@@ -206,3 +206,79 @@ head(aqw)        #wide form again
 
 
 
+
+
+### Lecture 3.  Table function family: table(),xtabs(),
+### prop.table, margin.table,ftable
+library(vcd)
+head(Arthritis)
+
+# one way table using table()
+mytable <- table(Arthritis$Improved)
+mytable                       # counts
+prop.table(mytable)           # proportions
+prop.table(mytable)*100       # percents
+
+
+
+# two way table using xtabs()
+mytable <- xtabs(~ Treatment+Improved, data=Arthritis)
+mytable  # counts
+
+margin.table(mytable, 1)    # total counts for Treatment 
+prop.table(mytable, 1)      # row proportions (rows add to 1)
+
+margin.table(mytable, 2)    # total counts for Improved
+prop.table(mytable, 2)      # column proportions (columns add to 1)
+
+prop.table(mytable)         # cell proportions (all cells add to 1)
+addmargins(mytable)         # cell counts with row and column sums
+addmargins(prop.table(mytable)) # cell proportions with row and column proportions
+
+addmargins(prop.table(mytable, 1), 2) # row proportions with row sums
+addmargins(prop.table(mytable, 2), 1) # column proportions with column sums
+
+
+
+# Two-way table using CrossTable()
+library(gmodels)
+# produce similar table as PROC FREQ in SAS or CROSSTABS in SPSS
+CrossTable(Arthritis$Treatment, Arthritis$Improved)
+
+
+
+# Three-way contingency table using xtabs()
+mytable <- xtabs(~ Treatment+Sex+Improved, data=Arthritis) 
+mytable          
+margin.table(mytable, 1)  # totals for Treatment
+margin.table(mytable, 2)  # totals for Sex
+margin.table(mytable, 3)  # totals for Improved
+margin.table(mytable, c(1, 3)) # totals for Treatment by Improved
+
+
+#using ftable to create a compact, “flat” contingency table
+# Treatment by Sex for each Level of Improved
+ftable(mytable)    #mytable is an object created by xtabs()
+ftable(prop.table(mytable, c(1, 2))) # proportions sum to 1 over index omitted
+ftable(addmargins(prop.table(mytable, c(1, 2)), 3)) 
+ftable(addmargins(prop.table(mytable, c(1, 2)), 3)) * 100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
