@@ -528,3 +528,53 @@ mean(unlist(list2))
 
 
 
+
+
+
+
+
+
+
+
+
+### Lecture 8. Apply a function to groups of rows of dataframe
+# Method 1. 
+# by(dfrm, fact, fun) 
+# Here, dfrm is the data frame, fact is the grouping factor, 
+# and fun is a function
+
+# create sample data
+familymember <- data.frame(
+  Sex = c("Male","Male","Female","Male","Male","Female"),
+  Income=c(300, 500, 200, 600,300,600),
+  Cost=c(200, 250, 100, 380,150,320))
+
+familymember$Sex <- as.factor(familymember$Sex)
+
+print(familymember)
+str(familymember)
+
+#summary statistics by sex group
+by(familymember, familymember$Sex, summary)
+
+
+
+#Method 2. 
+#Using group_by() of dplyr package
+library(dplyr)
+familymember %>%
+  group_by(Sex) %>%
+  summarize(
+    Avg_income = mean(Income),
+    Tot_cost = sum(Cost),
+    count_values = n()
+  )
+
+
+
+
+
+
+
+
+
