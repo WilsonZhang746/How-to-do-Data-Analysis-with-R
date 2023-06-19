@@ -439,3 +439,180 @@ print(mtcars[row_vec, ])
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 14. table function family
+
+library(vcd)
+head(Arthritis)
+
+# one way table
+mytable <- table(Arthritis$Improved)
+mytable                       # counts
+prop.table(mytable)           # proportions
+prop.table(mytable)*100       # percents
+
+# two way table
+mytable <- xtabs(~ Treatment+Improved, data=Arthritis)
+mytable  # counts
+
+margin.table(mytable, 1)    # total counts for Treatment 
+prop.table(mytable, 1)      # row proportions (rows add to 1)
+
+margin.table(mytable, 2)    # total counts for Improved
+prop.table(mytable, 2)      # column proportions (columns add to 1)
+
+prop.table(mytable)         # cell proportions (all cells add to 1)
+addmargins(mytable)         # cell counts with row and column sums
+addmargins(prop.table(mytable)) # cell proportions with row and column proportions
+
+addmargins(prop.table(mytable, 1), 2) # row proportions with row sums
+addmargins(prop.table(mytable, 2), 1) # column proportions with column sums
+
+# Listing 7.8 Two-way table using CrossTable
+library(gmodels)
+CrossTable(Arthritis$Treatment, Arthritis$Improved)
+
+# Listing 7.9 Three-way contingency table
+mytable <- xtabs(~ Treatment+Sex+Improved, data=Arthritis) 
+mytable          
+margin.table(mytable, 1)  # totals for Treatment
+margin.table(mytable, 2)  # totals for Sex
+margin.table(mytable, 3)  # totals for Improved
+margin.table(mytable, c(1, 3)) # totals for Treatment by Improved
+
+# Treatment by Sex for each Level of Improved
+ftable(mytable)
+ftable(prop.table(mytable, c(1, 2))) # proportions sum to 1 over index omitted
+ftable(addmargins(prop.table(mytable, c(1, 2)), 3)) 
+ftable(addmargins(prop.table(mytable, c(1, 2)), 3)) * 100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 15. Data Reshaping
+
+# Transpose of a Matrix using t() 
+matrix1 <- matrix(c(1:20), nrow=5, byrow=TRUE)
+print("Original Matrix")
+matrix1
+
+matrix2 <- t(matrix1)
+print("Transpose of the Matrix")
+matrix2
+
+
+
+# Joining Rows and Columns in Data Frame
+#using cbind() or rbind()
+
+# Cbind and Rbind function in R
+name <- c("Wilson", "Dudu", "Maomao", "Shirley")
+age <- c(24, 53, 62, 29)
+location <- c("Molde", "Jendem", "Molde", "Jendem")
+
+# Cbind function
+familymember <- cbind(name, age, location)
+print("Combining vectors into data frame using cbind ")
+print(familymember)
+
+# creating new data frame
+newd <- data.frame(name=c("Mico", "Mia"),
+                   age=c("28", "29"),
+                   location=c("Molde", "Aukra"))
+
+# rbind function
+familymember <- rbind(familymember, newd)
+print("Combining data frames using rbind ")
+print(familymember)
+
+
+# Merging two data frames in R
+name<- c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Mia")
+age <- c(32, 20, 22, 12,8,3)
+address <- c("Aukra", "Hustadvika", "Hustadvika", "Molde","Molde","Molde")
+
+# Cbind function
+family <- cbind(name, age, address)
+
+
+# creating new data frame
+Jiangjiang <- data.frame(name=c("Jiangjiang", "Gangdu"),
+                         age= c(16,18),
+                         address = c("Aukra","Molde"))
+
+Jiangjiang
+
+total <- merge(family, Jiangjiang, all=TRUE)
+print(total)
+
+
+family_data1 <- data.frame(name,age)
+family_data1
+family_data2 <- data.frame(name,address)
+family_data2
+
+merge(family_data1, family_data2)
+merge(family_data1, family_data2, all = TRUE)
+
+
+# melt and cast
+library(MASS)
+library(reshape2)
+
+names(airquality) <- tolower(names(airquality))
+head(airquality)    #wide form
+
+#melting from wide form to long form
+aql <- melt(airquality, id.vars = c("month", "day"))
+head(aql)
+
+aql <- melt(airquality, id.vars = c("month", "day"),
+            variable.name = "climate_variable", 
+            value.name = "climate_value")
+head(aql)
+
+
+#casting from long form to wide form
+aql <- melt(airquality, id.vars = c("month", "day"))    #long form
+head(aql)
+aql
+
+aqw <- dcast(aql, month + day ~ variable)
+head(aqw)        #wide form again
+
+
+
+
