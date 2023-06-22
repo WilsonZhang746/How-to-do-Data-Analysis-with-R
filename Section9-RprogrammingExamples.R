@@ -578,3 +578,59 @@ familymember %>%
 
 
 
+
+
+
+
+
+
+
+
+### Lecture 9. Applying  User-defined Functions on Factor Levels
+# Using by() in R
+
+#Example 1
+# Using mtcars dataset
+df <- data.frame(mtcars)
+
+str(df)
+
+# Factor levels on gear
+dffactors <- factor(mtcars$gear)
+
+
+
+
+maxfun <- function(x){
+  m <- max(x$hp)
+}
+
+# Output maximum hp of each factor i.e., gears
+by(df, dffactors, maxfun)
+
+
+
+#Example 2
+# Using mtcars dataset
+df <- data.frame(mtcars)
+
+# Factor levels on gear
+dffactors <- factor(mtcars$gear)
+
+# Output mean of qsec of each gears level
+by(df, dffactors, function(x){
+  m <- mean(x$qsec)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
