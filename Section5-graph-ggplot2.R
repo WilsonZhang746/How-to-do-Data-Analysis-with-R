@@ -1002,3 +1002,184 @@ ggplot(df, aes(x = wt, y = mpg)) +
 
 
 
+
+
+
+
+
+
+### Lecture 24. 3D plot using persp()
+
+#Example 1: Simple Circular Cone
+
+cone <- function(x, y){
+  sqrt(x ^ 2 + y ^ 2)
+}
+
+# prepare variables.
+x <- seq(-1, 1, length = 80)
+y <- seq(-1, 1, length = 80)
+
+#to create a matrix z with the dimension 80 * 80
+z <- outer(x, y, cone)
+
+# plot the 3D surface
+# Adding Titles and Labeling Axes to Plot
+#angles defining the viewing direction
+#theta gives the azimuthal direction and phi the colatitude.
+#shade to provide an approximation to daylight illumination.
+
+persp(x, y, z,
+      main="Perspective Plot of a Cone",
+      zlab = "Height",
+      theta = 30, phi = 15,        
+      col = "orange", shade = 0.4)
+
+
+
+#Example 2: Plotting a simple DEM(Digital elevation model)
+#showing Topographic Information on Auckland's Maunga Whau Volcano
+
+z <- 5 * volcano     # Exaggerate the relief
+x <- 10 * (1:nrow(z)) # 10 meter spacing (S to N)
+y <- 10 * (1:ncol(z)) # 10 meter spacing (E to W)
+
+
+# Don't draw the grid lines : border = NA
+#no bounding box: box = FALSE
+#scale = FALSE to retain the aspect ratios x,y,z
+par(bg = "gray")
+persp(x, y, z, theta = 135, phi = 30,
+      col = "brown", scale = FALSE,
+      shade = 0.75,
+      border = NA, box = FALSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 25. Heatmap 
+
+
+library(ggplot2)
+library(reshape2)
+
+data(mtcars)
+data <- mtcars[,c('mpg','hp','drat','qsec')]
+
+data <- cor(data)
+
+data1 <- melt(data)
+
+ggplot(data1, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  labs(title = "Correlation Heatmap",
+       x = "Variable 1",
+       y = "Variable 2")
+
+
+
+#Changing color:
+#  The color of the plot can be changed using three functions:
+#  scale_fill_gradient(): adds extreme colors to the plot
+
+
+ggplot(data1,aes(x = Var1, y = Var2, fill = value))+
+  geom_tile()+scale_fill_gradient(high = "green", low = "white")+
+  geom_tile() +
+  labs(title = "Correlation Heatmap",
+       x = "Variable 1",
+       y = "Variable 2")
+
+
+
+# scale_fill_distiller(): It used to customize according to 
+# ColorBrewer palette.
+
+
+ggplot(data1,aes(x = Var1, y = Var2,fill = value))+
+  geom_tile() + scale_fill_distiller(palette = "Spectral")+
+  geom_tile() +
+  labs(title = "Correlation Heatmap",
+       x = "Variable 1",
+       y = "Variable 2")
+
+
+
+
+#A heatmap can be reordered by reordering its y-elements.
+# This can be done by reorder().
+
+
+ggplot(data1,aes(x = Var1, y = reorder(Var2, value),
+                 fill = value)) + geom_tile()+
+  geom_tile() +
+  labs(title = "Correlation Heatmap",
+       x = "Variable 1",
+       y = "Variable 2")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### . Step chart
+
+#example of yearly price
+postage <- read.csv("http://datasets.flowingdata.com/us-postage.csv", sep = ",", header=T)
+
+
+head(postage,3)
+
+plot(postage$Year, postage$Price, type = "s")
+
+
+#example of family member income
+
+familymember <- c("Wilson","Dudu","Maomao","Miaomiao","Mico","Mia")
+income <- c(32, 20, 22, 10, 7, 3)
+plot(familymember, income, type = "s")
+
+
+
+
+
+
+
+
+
