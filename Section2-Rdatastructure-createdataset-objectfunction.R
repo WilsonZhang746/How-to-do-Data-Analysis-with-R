@@ -151,6 +151,8 @@ print(A[, 1:2])
 
 
 
+
+
 ### 3.Array
 ## Creating an array
 d1 <- c("N1", "N2","N3")   #label
@@ -159,7 +161,14 @@ d3 <- c("L1", "L2", "L3", "L4","L5")
 #create an array of dimension(3*4*5)
 A <- array(1:60, c(3, 4, 5), dimnames = list(d1, d2, d3))
 A
+
+
+A[1,,]
+A[,2,]
+A[1,3,]
 A[1,2,3]
+
+
 
 
 
@@ -187,6 +196,9 @@ pdata[1,]    #select all variables of 1st observation
 
 
 
+pdata['age'] <- c(16,32,28,19)
+
+pdata
 
 
 
@@ -194,7 +206,54 @@ pdata[1,]    #select all variables of 1st observation
 
 
 
-## 5. Using factors
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 5. List
+a <- "New List"
+b <- c(21, 13, 42)
+c <- matrix(1:100, nrow = 10)
+d <- c("wang", "zhang", "li")
+
+ID <- c(3, 4, 5, 6) 
+age <- c(15, 14, 18, 12)
+blood <- c("Type5", "Type6", "Type5", "Type6")
+status <- c("Poor", "Improved", "Excellent", "Poor")
+pdata <- data.frame(ID, age, blood, status)
+pdata
+
+newlist <- list(title = a, sum =b, c, d, e=pdata)
+newlist
+newlist[[2]]
+newlist[["sum"]]
+newlist$sum
+newlist$e 
+newlist[['e']]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 6. Using factors
 ID <- c(3, 4, 5, 6) 
 age <- c(15, 14, 18, 12)
 blood <- c("Type5", "Type6", "Type5", "Type6")
@@ -213,18 +272,6 @@ summary(pdata)
 
 
 
-
-
-## 6. Creating a list
-a <- "New List"
-b <- c(21, 13, 42)
-c <- matrix(1:100, nrow = 10)
-d <- c("wang", "zhang", "li")
-newlist <- list(title = a, sum =b, c, d)
-newlist
-newlist[[2]]
-newlist[["sum"]]
-newlist$sum
 
 
 
@@ -652,6 +699,118 @@ familymember
 familymember[[6]] <- NULL
 
 familymember
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 14. Random number generation in R
+
+# Create a vector with random values in R
+
+# sample() function
+# to create a vector of 10 random integer sequence
+vec_NoR <- sample(1 : 10, size = 10, replace = F)     #no replacement
+
+vec_R <- sample(1 : 10, size = 15, replace = T)     #with replacement
+
+#sample() with prob option
+# generate a vector with 200 elements with 1 to 5,with different 
+# generating probabilities from each value
+
+vec_pro <- sample(1:5, size = 200, replace = T,
+       prob = c(0.02, 0.2, 0.25, 0.5, 0.9))
+
+
+table(vec_pro)
+
+
+# generate random numbers from various statistical distributions
+
+#normal distribution
+
+vec_norm1 <- rnorm(10)  #standard normal distribution (mean=0, sd=1)
+
+#normal variates with mean 32 sd 2
+vec_norm2 <- rnorm(10, mean=32, sd=2)
+
+
+
+# generate matrix of random number
+
+#a matrix of integer from 1 to 32 in 4 rows 8 columns
+mat_R <- matrix(sample(1:32,rep=F), nrow=4)
+
+
+# a matrix of 50 normal variates with mean 32 sd 2
+mat_norm <- matrix(rnorm(50,mean=32, sd=2),nrow=10)
+mat_norm 
+
+
+
+# random number of uniform distribution
+
+vec_uni_1 <- runif(25)   #25 uniform variates between 0 and 1
+vec_uni_1
+
+#10 uniform variates between 3 and 8
+vec_uni_2 <- runif(10, min=3, max=8) 
+vec_uni_2
+
+
+#generate 8 random variables of binomial distribution where
+# n = 8, p = 0.2
+rbinom(8, size = 10, prob = 0.2)
+
+
+#generate a matrix (20 rows) of 100 random variables of binomial 
+#distribution where size = 10, p = 0.2
+matrix(rbinom(100, size = 10, prob = 0.2),nrow=20)
+
+
+
+
+# to crate random number of poisson distribution
+# a vectorof 20 poisson variates with mean 10
+#Poission distribution mean and variance have same value
+rpois(20, 10)
+
+#a matrix of 100 poisson variates with mean 10
+matrix(rpois(100, 10),nrow=20)
+
+
+
+#set.seed() to make generation reproducible
+set.seed(1)
+
+#create matrix with 10 random numbers between 1 and 20
+random_matrix <- matrix(runif(n=10, min=1, max=20), nrow=5)
+
+#view matrix
+random_matrix
+
+
+
+
 
 
 
