@@ -281,22 +281,6 @@ summary(pdata)
 
 
 
-## 7.Tibble
-#create a tibble from an existing data frame.
-library(tibble)
-str(mtcars)
-mtcars <- as_tibble(mtcars)
-str(mtcars)
-head(mtcars)
-
-
-#create a tibble using tibble()
-name <- c("surya", "sai", "Nihith", "prakash", "vikas", "mayur")
-marks_in_Math <- c(91, 85, 92, 89, 90, 93)
-marks_in_Java <- c(89, 91, 88, 91, 89, 87)
-Fav_color <- c("Pink", "Red", "Yellow", "Green", "White", "Blue")
-students <- tibble(name, marks_in_Math, marks_in_Java, Fav_color)
-print(students)
 
 
 
@@ -313,8 +297,7 @@ print(students)
 
 
 
-
-## 8.create datasets, read.table() to read csv file
+## 7.create datasets, read.table() to read csv file
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 
 #use read.table() to read a csv file to create a data frame
@@ -331,7 +314,7 @@ grade
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
-
+str(grade)
 
 
 
@@ -812,5 +795,22 @@ random_matrix
 
 
 
+
+## 7.Tibble
+#create a tibble from an existing data frame.
+library(tibble)
+str(mtcars)
+mtcars <- as_tibble(mtcars)
+str(mtcars)
+head(mtcars)
+
+
+#create a tibble using tibble()
+name <- c("surya", "sai", "Nihith", "prakash", "vikas", "mayur")
+marks_in_Math <- c(91, 85, 92, 89, 90, 93)
+marks_in_Java <- c(89, 91, 88, 91, 89, 87)
+Fav_color <- c("Pink", "Red", "Yellow", "Green", "White", "Blue")
+students <- tibble(name, marks_in_Math, marks_in_Java, Fav_color)
+print(students)
 
 
