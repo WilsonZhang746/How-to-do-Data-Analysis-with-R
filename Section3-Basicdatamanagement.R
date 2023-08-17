@@ -4,24 +4,33 @@
 #------------------------------------------------------------#
 #Section 3: Basic data management
 
-setwd("d:/")   # to set working directory
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
 ##set colClasses in read.table() to create a data frame
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
 
 
-##Creating new variables
+##2. Creating new variables
 grade$total_grade <- grade$Math + grade$Physics + grade$Chemistry
 grade$mean_grade <- (grade$Math + grade$Physics + grade$Chemistry)/3
 
+str(grade)
+
+#Alternative way using transform
 grade <- transform(grade,total_grade = Math + Physics + Chemistry, 
                    mean_grade = (Math + Physics + Chemistry)/3)
 
 
 
 
-## recode variables
+
+
+
+
+
+
+## 3. recode variables
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
@@ -32,7 +41,7 @@ grade$Chemistry[grade$Chemistry == 999] <- NA
 grade$Date[grade$Date == "999"] <- NA
 is.na(grade[,7:10])
 
-#rcode age to categorical
+#recode age to categorical
 grade$agecat[grade$Age < 31] <- "Young" 
 grade$agecat[grade$Age >= 31] <- "MiddleAged"
 
@@ -45,7 +54,15 @@ grade <- within(grade,{
 grade
 
 
-##rename variables in data frame
+
+
+
+
+
+
+
+
+## 4.rename variables in data frame
 names(grade)    #to show current variable names
 names(grade)[10] <- "testDate"
 
@@ -53,7 +70,10 @@ names(grade)[10] <- "testDate"
 
 
 
-## Handling missing value
+
+
+
+## 5. Handling missing value
 #recoding determined values to missing. 
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
@@ -72,11 +92,25 @@ test <- na.omit(grade)
 test
 
 
-##working with Date value
+
+
+
+
+
+
+
+
+
+
+## 6. working with Date value
 #default format for inputting is yyyy-mm-dd
 testdates <- as.Date(c("2008-09-21", "2009-01-16"))
 testdates
 #reads the data using a mm/dd/yy format
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
 grade$Date<- as.Date(grade$Date, "%m/%d/%y")
 grade$Date
 
@@ -99,7 +133,23 @@ difftime(date2, date1, units="weeks")
 difftime(date2, date1, units="mins")
 
 
-## Type conversion
+
+
+
+
+
+
+
+
+
+
+
+
+## 7. Type conversion
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
 is.numeric(grade$Age)
 is.vector(grade$First)
 test <- as.character(grade$Age)
@@ -110,7 +160,16 @@ is.character(test)
 
 
 
-##sorting
+
+
+
+
+
+
+
+
+
+##8. sorting
 #sorted grade from youngest student to oldest student
 test <- grade[order(grade$Age),]
 test
@@ -125,7 +184,12 @@ test
 
 
 
-##Merging and adding datasets
+
+
+
+
+
+## 9. Merging and adding datasets
 #Adding columns to a data frame, using merge()
 #when two data frame has common variable and its value
 Biology<-c(72,87,92,67,99,100,68,85,74,79,34,49,58,84,89,67,78,59,97,48)
@@ -147,7 +211,13 @@ test<-rbind(grade,rdata)
 
 
 
-##Subsetting datasets
+
+
+
+
+
+
+##10. Subsetting datasets
 #Selecting observations with a list of variables
 test<-grade[,c(7:9)]
 test<-grade[,c("Math","Physics","Chemistry")]
@@ -181,4 +251,281 @@ test <- grade[which(grade$Date >= startdate & grade$Date <= enddate),]
 
 #using subset()
 #to select Male students younger than 25 years old, and their Math and Chemistry grades.
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
 test <- subset(grade, Gender=="Male" & Age <25, select=c(Math, Chemistry))
+
+
+
+
+
+
+
+
+
+
+
+
+### 11. Modify Data using with() Function
+
+# R program to modify data of an object
+
+# Calling predefined data set
+BOD
+
+# Calling with() function
+#calculation occurs inside with()
+with(BOD, 
+     {BOD$demand <- BOD$demand + 1
+     print(BOD$demand)}
+     )
+
+with(BOD, 
+     {demand <- demand + 1
+     print(demand)}
+)
+
+#the original dataframe has not been changed
+BOD     
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+#set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+#grade<-grade[complete.cases(grade),] if there are missing value
+#summary of math and physics
+summary(grade$Math)
+#correlation between Math and Physics grades
+cor(grade$Math,grade$Physics)
+
+#Using with
+with(grade, {
+  print(summary(Math))
+  print(cor(Math, Physics))
+})
+
+
+#assignments exist only within the function brackets
+with(grade, {
+  test <- summary(Math)
+  test
+})
+
+
+#not work if we refer to the object created inside with()
+test
+
+
+#use special assignment operator (<<-) to realize
+with(grade, {
+  summary(Math)
+  cor(Math,Physics)
+  test<<- summary(Math)
+})
+test
+
+with(grade, {
+  grade$totalscore <- Math + Physics + Chemistry
+  print(grade$totalscore)
+  grade <<- grade
+})
+
+grade
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 12. Modify dataframes with transform() Function
+
+# Create example data frame
+familymember <- data.frame( name=c("Wilson","Dudu","Maomao","Miaomiao","Mico","Mia"),
+                    age=c(32,20,22, 12,8,3))
+
+# Apply transform function
+familymember <- transform(familymember,age = age + 1)  
+
+
+# Print data      
+
+print(familymember)
+
+
+
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+
+##Creating new variables
+grade$total_grade <- grade$Math + grade$Physics + grade$Chemistry
+grade$mean_grade <- (grade$Math + grade$Physics + grade$Chemistry)/3
+
+
+#using transform()
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+grade <- transform(grade,total_grade = Math + Physics + Chemistry, 
+                   mean_grade = (Math + Physics + Chemistry)/3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 13. Difference between with() and within() function
+
+
+## using with()
+# R program to modify data of an object
+
+# Calling predefined data set
+BOD
+
+# Calling with() function
+#calculation occurs inside with()
+with(BOD, 
+     {BOD$demand <- BOD$demand + 1
+     print(BOD$demand)}
+)
+BOD
+
+
+with(BOD, 
+     {demand <- demand + 1
+     print(demand)}
+)
+
+#the original dataframe has not been changed
+BOD     
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+#set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+#grade<-grade[complete.cases(grade),] if there are missing value
+#summary of math and physics
+summary(grade$Math)
+#correlation between Math and Physics grades
+cor(grade$Math,grade$Physics)
+
+#Using with
+with(grade, {
+  print(summary(Math))
+  print(cor(Math, Physics))
+})
+
+
+#assignments exist only within the function brackets
+with(grade, {
+  test <- summary(Math)
+  test
+})
+
+
+#not work if we refer to the object created inside with()
+test
+
+
+#use special assignment operator (<<-) to realize
+with(grade, {
+  summary(Math)
+  cor(Math,Physics)
+  test<<- summary(Math)
+})
+test
+
+with(grade, {
+  grade$totalscore <- Math + Physics + Chemistry
+  print(grade$totalscore)
+  grade <<- grade
+})
+
+grade
+
+
+
+
+
+
+
+# within()
+
+# Creating a data frame
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+# both new variables are created for dataframe
+grade <- within(grade,{
+  total_grade <- Math + Physics + Chemistry
+  mean_grade <- (Math + Physics + Chemistry)/3
+  })
+
+grade
+
+
+## same example, if we use with(),th result is not wanted. 
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+
+grade <- with(grade,{
+  total_grade <- Math + Physics + Chemistry
+  mean_grade <- (Math + Physics + Chemistry)/3
+})
+
+#now grade is then a new created vector, same as mean_grade
+grade
+
