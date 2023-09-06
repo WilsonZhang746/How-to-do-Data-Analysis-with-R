@@ -31,10 +31,13 @@ grade <- transform(grade,total_grade = Math + Physics + Chemistry,
 
 
 ## 3. recode variables
+#read csv files into a data frame
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
 str(grade)
+
 grade$Math[grade$Math == 999] <- NA
 grade$Physics[grade$Physics == 999] <- NA
 grade$Chemistry[grade$Chemistry == 999] <- NA
@@ -46,6 +49,11 @@ grade$agecat[grade$Age < 31] <- "Young"
 grade$agecat[grade$Age >= 31] <- "MiddleAged"
 
 #alternative method
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+str(grade)
+
 grade <- within(grade,{
   agecat <- NA
   agecat[Age < 31] <- "Young"
@@ -53,6 +61,7 @@ grade <- within(grade,{
 
 grade
 
+str(grade)
 
 
 
@@ -63,8 +72,34 @@ grade
 
 
 ## 4.rename variables in data frame
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+
+#to read csv file and create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+str(grade)
+
 names(grade)    #to show current variable names
-names(grade)[10] <- "testDate"
+names(grade)[10] <- "testDate"      #set new name for 10th column
+names(grade)
+head(grade)
+
+
+
+#using plyr library's rename function
+library(plyr) 
+
+# Creating a Data Frame 
+df<-data.frame(row1 = 0:2, row2 = 3:5, row3 = 6:8) 
+print("Original Data Frame") 
+print(df) 
+print("Modified Data Frame") 
+
+# Renaming Data Frame 
+rename(df, c("row1"="one", "row2"="two", "row3"="three")) 
+
+
 
 
 
@@ -75,13 +110,19 @@ names(grade)[10] <- "testDate"
 
 ## 5. Handling missing value
 #recoding determined values to missing. 
+setwd("d:\\RStatistics-Tutorial")      # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
+
+str(grade)
+
+#recode value as NA
 grade$Math[grade$Math == 999] <- NA
 grade$Physics[grade$Physics == 999] <- NA
 grade$Chemistry[grade$Chemistry == 999] <- NA 
 grade$Date[grade$Date == "999"] <- NA
+
 #identifying observations that contain missing values
 is.na(grade[,7:10])   
 #Excluding missing values from analyses
@@ -90,7 +131,7 @@ sum(grade$Physics, na.rm=TRUE)
 #remove any observation with missing data
 test <- na.omit(grade)    
 test
-
+str(test)
 
 
 
@@ -150,13 +191,22 @@ setwd("d:\\RStatistics-Tutorial")    # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
+str(grade)
+
 is.numeric(grade$Age)
 is.vector(grade$First)
-test <- as.character(grade$Age)
+test <- as.character(grade$Age)    #convert to character
 test
 is.numeric(test)
 is.vector(test)
 is.character(test)
+
+
+#convert Gender as factor
+grade$Gender <- as.factor(grade$Gender)
+
+str(grade)
+
 
 
 
@@ -170,6 +220,12 @@ is.character(test)
 
 
 ##8. sorting
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+str(grade)
+
 #sorted grade from youngest student to oldest student
 test <- grade[order(grade$Age),]
 test
@@ -189,9 +245,15 @@ test
 
 
 
-## 9. Merging and adding datasets
+## 9. Merging and combining datasets
 #Adding columns to a data frame, using merge()
 #when two data frame has common variable and its value
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+str(grade)
+
 Biology<-c(72,87,92,67,99,100,68,85,74,79,34,49,58,84,89,67,78,59,97,48)
 mdata<-data.frame(grade$StudentID, Biology)
 names(mdata)<-c("StudentID","Biology")
@@ -209,7 +271,7 @@ test<-cbind(grade, hdata)
 rdata<-grade[1:5,]
 test<-rbind(grade,rdata)
 
-
+test
 
 
 
