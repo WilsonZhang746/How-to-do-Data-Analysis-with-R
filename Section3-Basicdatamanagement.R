@@ -280,6 +280,12 @@ test
 
 
 ##10. Subsetting datasets
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+str(grade)
+
 #Selecting observations with a list of variables
 test<-grade[,c(7:9)]
 test<-grade[,c("Math","Physics","Chemistry")]
@@ -425,6 +431,8 @@ grade
 familymember <- data.frame( name=c("Wilson","Dudu","Maomao","Miaomiao","Mico","Mia"),
                     age=c(32,20,22, 12,8,3))
 
+familymember
+
 # Apply transform function
 familymember <- transform(familymember,age = age + 1)  
 
@@ -446,6 +454,7 @@ grade
 grade$total_grade <- grade$Math + grade$Physics + grade$Chemistry
 grade$mean_grade <- (grade$Math + grade$Physics + grade$Chemistry)/3
 
+grade
 
 #using transform()
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
@@ -456,7 +465,7 @@ grade <- transform(grade,total_grade = Math + Physics + Chemistry,
                    mean_grade = (Math + Physics + Chemistry)/3)
 
 
-
+grade
 
 
 
