@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by https://www.youtube.com/@easydatascience2508
+#by https://www.youtube.com/@rprogramming32
 #Section 2: R data structure, create datasets
 #------------------------------------------------------------#
 
@@ -324,13 +324,14 @@ str(grade)
 
 
 
-## 9.Read excel file
+## 8.Read excel file
 #using read_xlsx
 library(readxl)
 workbook <- "D:\\RStatistics-Tutorial\\cars.xlsx"
 mydataframe1 <- read_xlsx(workbook, 1)
 mydataframe2 <- read_xlsx(workbook, 2)
 
+mydataframe1 <- read_xlsx(workbook, "cars")
 
 
 
@@ -343,7 +344,8 @@ mydataframe2 <- read_xlsx(workbook, 2)
 
 
 
-## 10.Using with()
+
+## 9.Using with()
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 #set colClasses in read.table() to create a data frame
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
@@ -358,8 +360,8 @@ cor(grade$Math,grade$Physics)
 
 #Using with
 with(grade, {
-  summary(Math)
-  cor(Math, Physics)
+  print(summary(Math))
+  print(cor(Math, Physics))
 })
 
 
@@ -376,8 +378,8 @@ test
 
 #use special assignment operator (<<-) to realize
 with(grade, {
-  summary(Math)
-  cor(Math,Physics)
+  print(summary(Math))
+  print(cor(Math,Physics))
   test<<- summary(Math)
 })
 test
@@ -390,7 +392,8 @@ test
 
 
 
-## 11. Object functions
+
+## 10. Object functions
 ##Useful functions for object
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 #set colClasses in read.table() to create a data frame
@@ -479,7 +482,9 @@ grade$Age<-cut(grade$Age,3)    #transform Age to a factor variable with 3 levels
 
 
 
-### 12. Create, index and modify Data Frame
+
+
+### 11. Create, index and modify Data Frame
 ## Creating a data frame
 ID <- c(3, 4, 5, 6) 
 age <- c(15, 14, 18, 12)
@@ -604,7 +609,7 @@ stats
 
 
 
-### Lecture 13.create, index and modify list
+### Lecture 12.create, index and modify list
 
 ## Example 1
 ## create a list
@@ -672,6 +677,8 @@ append(familymember1,familymember2[[1]])
 
 ##Modifying the list elements
 familymember[[6]][[1]] <- 'Molde'
+
+familymember
 
 familymember[[6]] <- c('Oslo','Oslo')    
 

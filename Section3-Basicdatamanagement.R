@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by https://www.youtube.com/@easydatascience2508
+#by https://www.youtube.com/@rprogramming32
 #Section 2: R data structure, create datasets
 #------------------------------------------------------------#
 #Section 3: Basic data management
@@ -559,9 +559,6 @@ with(grade, {
 })
 
 grade
-
-
-
 
 
 

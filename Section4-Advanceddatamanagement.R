@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by https://www.youtube.com/@easydatascience2508
+#by https://www.youtube.com/@rprogramming32
 #Section 4: Advanced data management
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 ##set colClasses in read.table() to create a data frame
@@ -7,6 +7,9 @@ vartype<-c("character", "character", "character", "character", "character", "num
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
 
+
+
+#Lecture 1
 ##Mathematical functions
 #Absolute value
 abs(-5.0)      #5
@@ -31,7 +34,7 @@ exp(2.3085)      #returns  10.06
 
 
 
-
+#Lecture 2.
 ##Statistical functions
 x <- c(seq(1:100))  #a vector from 1 to 100
 #mean
