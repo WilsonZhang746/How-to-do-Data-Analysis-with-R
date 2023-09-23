@@ -713,7 +713,7 @@ familymember
 
 
 
-### Lecture 14. Random number generation in R
+### Lecture 13. Random number generation in R
 
 # Create a vector with random values in R
 
@@ -721,7 +721,10 @@ familymember
 # to create a vector of 10 random integer sequence
 vec_NoR <- sample(1 : 10, size = 10, replace = F)     #no replacement
 
+vec_NoR
+
 vec_R <- sample(1 : 10, size = 15, replace = T)     #with replacement
+vec_R
 
 #sample() with prob option
 # generate a vector with 200 elements with 1 to 5,with different 
@@ -730,6 +733,7 @@ vec_R <- sample(1 : 10, size = 15, replace = T)     #with replacement
 vec_pro <- sample(1:5, size = 200, replace = T,
        prob = c(0.02, 0.2, 0.25, 0.5, 0.9))
 
+vec_pro
 
 table(vec_pro)
 
@@ -740,16 +744,18 @@ table(vec_pro)
 
 vec_norm1 <- rnorm(10)  #standard normal distribution (mean=0, sd=1)
 
+vec_norm1
 #normal variates with mean 32 sd 2
 vec_norm2 <- rnorm(10, mean=32, sd=2)
 
-
+vec_norm2
 
 # generate matrix of random number
 
 #a matrix of integer from 1 to 32 in 4 rows 8 columns
 mat_R <- matrix(sample(1:32,rep=F), nrow=4)
 
+mat_R
 
 # a matrix of 50 normal variates with mean 32 sd 2
 mat_norm <- matrix(rnorm(50,mean=32, sd=2),nrow=10)
@@ -769,7 +775,7 @@ vec_uni_2
 
 #generate 8 random variables of binomial distribution where
 # n = 8, p = 0.2
-rbinom(8, size = 10, prob = 0.2)
+rbinom(8, size=10, prob = 0.2)
 
 
 #generate a matrix (20 rows) of 100 random variables of binomial 
@@ -790,13 +796,27 @@ matrix(rpois(100, 10),nrow=20)
 
 
 #set.seed() to make generation reproducible
-set.seed(1)
+set.seed(1234)
+vec_norm1 <- rnorm(10)  #standard normal distribution (mean=0, sd=1)
+vec_norm1
 
-#create matrix with 10 random numbers between 1 and 20
-random_matrix <- matrix(runif(n=10, min=1, max=20), nrow=5)
+set.seed(1234)
+vec_norm2 <- rnorm(10)  #standard normal distribution (mean=0, sd=1)
+vec_norm2
 
-#view matrix
-random_matrix
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
