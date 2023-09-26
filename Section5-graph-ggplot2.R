@@ -18,18 +18,13 @@ Income$Job<-as.factor(Income$Job)
 # --  Creating a graph with ggplot2
 library(ggplot2)
 
-## 1. Start building graph
+## 1. Start building graphs
 # x axis: years of experience, y-axis: salary
 ggplot(data = Income, mapping = aes(x = Years, y = Salary))
 
 
 
-
-
-
-
-
-##2. Add geoms_ in ggplot()
+#Add geoms_ in ggplot()
 #add a scatter plot of Years and Salary
 ggplot(data = Income, mapping = aes(x = Years, y = Salary)) + 
   geom_point()
@@ -54,7 +49,22 @@ ggplot(data = Income,
 
 
 
-## 3. Using Grouping in ggplot2
+## lecture 2. Using Grouping in ggplot2
+
+library(ggplot2)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
+Income <- read.table("Income.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+Income
+Income$Race<-as.factor(Income$Race)
+Income$Gender<-as.factor(Income$Gender)
+Income$Region<-as.factor(Income$Region)
+Income$Married<-as.factor(Income$Married)
+Income$Job<-as.factor(Income$Job)
+
+
 # using different point shape, color and line type
 # for male and female.
 ggplot(data = Income, 
@@ -81,7 +91,21 @@ ggplot(data = Income,
 
 
 
-##4. Using Scales in ggplot2
+
+
+
+##Lecture 3. Using Scales in ggplot2
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
+Income <- read.table("Income.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+Income
+Income$Race<-as.factor(Income$Race)
+Income$Gender<-as.factor(Income$Gender)
+Income$Region<-as.factor(Income$Region)
+Income$Married<-as.factor(Income$Married)
+Income$Job<-as.factor(Income$Job)
 # change the x- and y-axis scaling and the 
 #colors representing males and females
 ggplot(data = Income,
