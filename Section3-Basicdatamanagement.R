@@ -152,6 +152,7 @@ setwd("d:\\RStatistics-Tutorial")    # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
+grade$Date
 grade$Date<- as.Date(grade$Date, "%m/%d/%y")
 grade$Date
 
@@ -164,14 +165,14 @@ format(today, format="%b %d %y")
 format(today, format="%A")
 
 #arithmetic operations with Date value
-date1 <- as.Date("2022-01-16")
-date2 <- as.Date("2022-07-29")
+date1 <- as.Date("2024-01-16")
+date2 <- as.Date("2023-07-29")
 days <- date2 - date1
 days
 
 #calculate a time interval in different units
-difftime(date2, date1, units="weeks")
-difftime(date2, date1, units="mins")
+difftime(date1, date2, units="weeks")
+difftime(date1, date2, units="mins")
 
 
 
@@ -207,6 +208,7 @@ grade$Gender <- as.factor(grade$Gender)
 
 str(grade)
 
+head(grade)
 
 
 
@@ -242,6 +244,95 @@ test
 
 
 
+###8-b Dropping variables
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+head(grade)
+str(grade)
+
+#drop math and physics variables method 1
+exvar1 <- names(grade) %in% c("Math","Physics")
+newgrade1 <- grade[!exvar]
+head(newgrade1)
+
+
+#method 2
+newgrade2 <- grade[c(-7,-8)]
+head(newgrade2)
+
+
+#method 3
+newgrade3 <- grade
+newgrade3$Math <-newgrade3$Physics <- NULL
+head(newgrade3)
+
+
+
+
+
+
+
+
+
+### 8-C, selecting variables
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+head(grade)
+str(grade)
+
+names(grade)
+#select variables, method 1
+new_df1 <- grade[c(2,3,7,8,9)]
+head(new_df1)
+
+
+#select variables, method 2
+new_df2 <- grade[c("First","Last","Math","Physics","Chemistry")]
+head(new_df2)
+
+
+#select variables, method 3
+new_df3 <- grade[c(-1,-4,-5,-6,-10)]
+head(new_df3)
+
+
+#select variables, method 4
+library(dplyr)
+new_df4 <- select(grade,First,Last,Math,Physics,Chemistry)
+head(new_df4)
+
+
+
+
+
+
+###8-d, selecting observations
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+head(grade)
+
+
+testdf <- grade[1:5,]
+testdf
+
+testdf <- grade[(grade$Gender == "Male") & (grade$Age >=23) ,]
+testdf
+
+
+grade$Date <- as.Date(grade$Date, "%m/%d/%y") 
+date1 <- as.Date("2008-06-01") 
+date2 <- as.Date("2008-12-31") 
+testdf <- grade[which(grade$Date >= date1 & 
+                            grade$Date <= date2),]
+
+testdf
+
+
+
+
 
 
 
@@ -251,27 +342,27 @@ test
 setwd("d:\\RStatistics-Tutorial")    # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
-grade
+head(grade)
 str(grade)
 
 Biology<-c(72,87,92,67,99,100,68,85,74,79,34,49,58,84,89,67,78,59,97,48)
 mdata<-data.frame(grade$StudentID, Biology)
 names(mdata)<-c("StudentID","Biology")
 test<-merge(grade, mdata, by="StudentID")
-
+head(test)
 #Horizontal concatenation with cbind()
 #when two data frames have same number of observations
 English<-Biology
 hdata<-data.frame(Biology, English)
 names(hdata)<-c("Biology", "English")
 test<-cbind(grade, hdata)
+head(test)
 
 #Adding rows to a data frame
 #when two data frames have same variables
 rdata<-grade[1:5,]
 test<-rbind(grade,rdata)
-
-test
+head(test)
 
 
 
@@ -283,12 +374,14 @@ test
 setwd("d:\\RStatistics-Tutorial")    # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
-grade
+head(grade)
 str(grade)
 
 #Selecting observations with a list of variables
 test<-grade[,c(7:9)]
+head(test)
 test<-grade[,c("Math","Physics","Chemistry")]
+head(test)
 
 #if one index is included, then subsetting the column
 grade[8]   #grade of Physics
@@ -297,9 +390,11 @@ grade[8]   #grade of Physics
 #dropping Math and Chemistry
 dvars <- names(grade) %in% c("Math", "Chemistry")
 test <- grade[!dvars]
+head(test)
 
 #you can achieve this with 
 test <- grade[c(-7,-9)]
+head(test)
 
 #you can try this too.
 grade$Math <-NULL
@@ -307,24 +402,25 @@ grade$Chemistry <- NULL
 
 #Selecting observations
 test<-grade[3:6,]  #observations 3-6
+test
 
 #to select Male students and younger than 25 years old.
 test <- grade[grade$Gender=="Male" & grade$Age < 25,]
+test
 
 #to select grades tested from October 2008 to March 2009
 grade$Date <- as.Date(grade$Date, "%m/%d/%y")
 startdate <- as.Date("2008-10-01")
 enddate <- as.Date("2009-02-28")
 test <- grade[which(grade$Date >= startdate & grade$Date <= enddate),]
-
+test
 #using subset()
 #to select Male students younger than 25 years old, and their Math and Chemistry grades.
 setwd("d:\\RStatistics-Tutorial")    # to set working directory
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
-grade
 test <- subset(grade, Gender=="Male" & Age <25, select=c(Math, Chemistry))
-
+test
 
 
 
@@ -435,6 +531,7 @@ familymember
 
 # Apply transform function
 familymember <- transform(familymember,age = age + 1)  
+familymember
 
 
 # Print data      
@@ -447,14 +544,14 @@ setwd("d:\\RStatistics-Tutorial")    # to set working directory
 ##set colClasses in read.table() to create a data frame
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
-grade
+head(grade)
 
 
 ##Creating new variables
 grade$total_grade <- grade$Math + grade$Physics + grade$Chemistry
 grade$mean_grade <- (grade$Math + grade$Physics + grade$Chemistry)/3
 
-grade
+head(grade)
 
 #using transform()
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
@@ -596,4 +693,129 @@ grade <- with(grade,{
 
 #now grade is then a new created vector, same as mean_grade
 grade
+
+
+
+
+
+
+
+
+
+
+
+## 14 attach , detatch
+library(ggplot2)
+data(mpg)
+table(mpg$displ,mpg$cty)
+
+
+attach(mpg)
+table(displ,cty)
+detach(mpg)
+
+
+# *** keep in mind DO NOT use attach when more than one object 
+#can have the same name.
+cty <- c(1,2,3)
+attach(mpg)
+#does not work, as the individual object cty has priority
+table(displ,cty)      
+detach(mpg)
+
+
+
+#Detecting and removing outliers
+
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-outlier.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+
+grade
+
+
+
+quantiles <- quantile(grade$Physics, probs = c(.25, .75))
+range <- 1.5 * IQR(grade$Physics)
+normal_grade <- subset(grade,
+                       grade$Physics > (quantiles[1] - range) & 
+                       grade$Physics < (quantiles[2] + range))
+
+normal_grade
+
+
+
+
+
+
+#Substituting missing values using the mice package
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+
+grade
+grade$Physics[grade$Physics == 999] <- NA
+grade
+
+#identifying observations that contain missing values
+is.na(grade[,7:9]) 
+
+#Generate the data to substitute missing values using the mice() function
+simulation <- mice(grade, method = "pmm")
+
+#Populate the original data with generated data:
+grade_complete <- complete(simulation, action =1)
+
+
+
+
+
+
+
+
+#print and cat
+#when we call print(result) in R, because print() is a 
+#generic function, the interpreter checks the "class" 
+#attribute of result ; suppose the class is "x" . 
+#If a print.x() exists, that function will be called;
+pi
+
+sqrt(2)
+
+print(pi)
+
+print(sqrt(2))
+
+#The beauty of print is that it knows how to format any 
+#R value for printing, including structured values 
+#such as matrices and lists:
+
+print(matrix(c(1, 2, 3, 4), 2, 2))
+
+print(list("a", "b", "c"))
+
+
+#The print function has a significant limitation, however: 
+#it prints only one object at a time. Trying to print
+#multiple items gives this mind-numbing error message:
+
+print("The zero occurs at", 2 * pi, "radians.")
+
+
+#The cat function is an alternative to print that lets 
+#you concatenate multiple items into a continuous output:
+A = 3
+
+cat("The zero occurs at", 2 * A, "radians.", "\n")
+
+
+
+
+
+
+
+
+
 

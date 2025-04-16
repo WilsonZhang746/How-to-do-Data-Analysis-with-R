@@ -200,11 +200,37 @@ pdata['age'] <- c(16,32,28,19)
 
 pdata
 
+#change column labels (variable names)
+names(pdata) <- c("index","AGE","BLOOD","STATUS")
+pdata
+
+#case identifiers can be specified with a rowname option 
+#in the data.frame() function.
+ID <- c(3, 4, 5, 6) 
+age <- c(15, 14, 18, 12)
+blood <- c("Type5", "Type6", "Type5", "Type6")
+status <- c("Poor", "Improved", "Excellent", "Poor")
+pdata <- data.frame(ID, age, blood, status, row.names="ID")
+pdata
 
 
 
+## Tibble
+#create a tibble from an existing data frame.
+library(tibble)
+str(mtcars)
+mtcars <- as_tibble(mtcars)
+str(mtcars)
+head(mtcars)
 
 
+#create a tibble using tibble()
+name <- c("surya", "sai", "Nihith", "prakash", "vikas", "mayur")
+marks_in_Math <- c(91, 85, 92, 89, 90, 93)
+marks_in_Java <- c(89, 91, 88, 91, 89, 87)
+Fav_color <- c("Pink", "Red", "Yellow", "Green", "White", "Blue")
+students <- tibble(name, marks_in_Math, marks_in_Java, Fav_color)
+print(students)
 
 
 
@@ -267,11 +293,16 @@ str(pdata)    #to show structure of data frame
 summary(pdata)
 
 
+score <- c(1,2,3,2)
+pdata$score <- score
+#numeric variable as factor,using levels, and labels
+#c(2,1) refers to the numeric values in the vector
+#c("good","bad") refers to c(2,1) accordingly.
+#all the values not in c(2,1) will be transformed to NA
+pdata$score <- factor(score, levels= c(2,1),labels=c("good","bad"))
 
-
-
-
-
+pdata
+table(pdata$score)
 
 
 
@@ -328,15 +359,35 @@ str(grade)
 #using read_xlsx
 library(readxl)
 workbook <- "D:\\RStatistics-Tutorial\\cars.xlsx"
+
+#by default first line in excel is read as column variables in dataframe
 mydataframe1 <- read_xlsx(workbook, 1)
 mydataframe2 <- read_xlsx(workbook, 2)
 
+head(mydataframe1)
+head(mydataframe2)
+
+
 mydataframe1 <- read_xlsx(workbook, "cars")
+head(mydataframe1)
 
 
+#value 0 replaced with na
+mydataframe1 <- read_xlsx(workbook, sheet = 1, na="0")
+head(mydataframe1)
 
+#Choose cells in worksheet to read from
+mydataframe1 <- read_xlsx(workbook, sheet = 1, range="A1:C9")
+head(mydataframe1)
 
+#column name to FALSE
+mydataframe1 <- read_xlsx(workbook, sheet = 1, col_names = FALSE)
+head(mydataframe1)
 
+#skip first 3 rows                          
+mydataframe1 <- read_xlsx(workbook, sheet = 1, skip=3)
+
+head(mydataframe1)
 
 
 
@@ -435,12 +486,13 @@ test2
 gradepart<-grade[,c(7:9)]
 names(gradepart)<-c("v1","v2","v3")
 test3<-cbind(grade,gradepart )
-test3
+head(test3,3)
 
 #rbind()  Combines data frames across rows
 test4<-grade[1:10,]
 test5<-rbind(grade, test4)
-test5
+head(test5,15)
+
 
 
 #head()
@@ -464,6 +516,7 @@ seq(1,10,2)    #generate a vector 1,3,5,7,9
 
 #rep(X, n)	#Repeats x n times and generate a  vector
 rep(1,5)    #generate a vector 1,1,1,1,1
+rep(c(1,2),5)
 
 #cut(X, n)	#Divides the continuous variable x into a factor with n 
 #levels
@@ -473,9 +526,18 @@ grade
 grade$Age<-cut(grade$Age,3)    #transform Age to a factor variable with 3 levels
 
 
+#cat(... , file = "myfile",append = FALSE)        	
+#Concatenates the objects in ... and 					
+#outputs them to the screen or to a file (if one is declared).
 
+name <- c("Jane")
+cat("Hello" , name, "\n")
 
-
+#When cat concatenates objects for output, it separates each by a
+#space. That’s why you include the backspace (\b) escape
+#character before the period.
+name <- "Bob"
+cat("Hello", name, "\b.\n", "Isn\'t R", "\t", "GREAT?\n")
 
 
 
@@ -804,6 +866,47 @@ set.seed(1234)
 vec_norm2 <- rnorm(10)  #standard normal distribution (mean=0, sd=1)
 vec_norm2
 
+vec_norm3 <- rnorm(10)  #standard normal distribution (mean=0, sd=1)
+vec_norm3
+
+
+
+
+
+
+
+
+### R and Python difference
+
+#In R, an object 'age' is created with scalar value 23
+age <- 23
+
+#In R, create a vector of four countries
+countries<- c('USA','UK','Japan', 'Norway')
+#print out the third country
+print(countries[3])
+
+
+#In R, using braces to represent block
+#using for loop to print out each element of a vector 'countries'
+for (country in countries) {
+  print(country)
+}
+
+
+#In R, create a new vector 'new_countries', same as 'countries'
+new_countries <-countries
+new_countries
+
+#add a new element to 'new_countries'
+new_countries[5] <-"Germany"
+#to show values of the new vector
+new_countries
+
+#to show values of the old vector
+countries
+
+#new vector and old vector are not the same thing
 
 
 
@@ -813,31 +916,66 @@ vec_norm2
 
 
 
+#¤ Matrix Operations
+
+#Matrix Transpose
+A <- rbind(c(2,5,2),c(6,1,4))
+A
+t(A)
+
+#Identity Matrix
+#It’s a square m × m matrix with ones on the diagonal 
+#and zeros elsewhere.
+
+A <- diag(x=3)
+A
+
+#Scalar Multiple of a Matrix
+A <- rbind(c(2,5,2),c(6,1,4))
+a <- 2
+a*A
+
+#Matrix Addition and Subtraction
+A <- cbind(c(2,5,2),c(6,1,4))
+A
+
+B <- cbind(c(-2,3,6),c(8.1,8.2,-9.8))
+B
+
+A+B
+A-B
+
+#Matrix Multiplication
+A <- rbind(c(2,5,2),c(6,1,4))
+A
+dim(A)
+
+B <- cbind(c(3,-1,1),c(-3,1,5))
+B
+dim(B)
+
+
+A%*%B
+
+#Matrix Inversion
+A <- matrix(data=c(3,4,1,2),nrow=2,ncol=2)
+A
+
+solve(A)
+
+A%*%solve(A)
 
 
 
+#Listing Variables using ls()
+x <- 10
+y <- 50
+z <- c("three", "blind", "mice")
+f <- function(n, p) sqrt(p * (1 - p) / n)
 
+ls()
 
+ls.str()
 
-
-
-
-
-## 7.Tibble
-#create a tibble from an existing data frame.
-library(tibble)
-str(mtcars)
-mtcars <- as_tibble(mtcars)
-str(mtcars)
-head(mtcars)
-
-
-#create a tibble using tibble()
-name <- c("surya", "sai", "Nihith", "prakash", "vikas", "mayur")
-marks_in_Math <- c(91, 85, 92, 89, 90, 93)
-marks_in_Java <- c(89, 91, 88, 91, 89, 87)
-Fav_color <- c("Pink", "Red", "Yellow", "Green", "White", "Blue")
-students <- tibble(name, marks_in_Math, marks_in_Java, Fav_color)
-print(students)
-
-
+#remove all variables in working space
+rm(list = ls())
