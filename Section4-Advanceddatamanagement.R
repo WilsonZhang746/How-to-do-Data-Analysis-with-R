@@ -361,11 +361,28 @@ test <- grade[1:5, 7:9]
 test
 t(test)
 
+items <- c(11, 22, 33, 55,66,77)
+rn <- c("r1", "r2")
+cn <- c("c1", "c2","c3")
 
+#2 × 2 matrix filled by rows
+mtx1 <- matrix(items,
+                   nrow = 2, ncol = 3, byrow = TRUE,
+                   dimnames = list(rn, cn))
 
+mtx1
 
+t(mtx1)
 
+#data frame transpose
+Idnumber <- c(3, 4, 5, 6) 
+age <- c(76, 32, 64, 22)
+gene <- c("T5", "T6", "T5", "T4")
+score <- c("Weak", "good", "brilliant", "bad")
+tdata <- data.frame(Idnumber, age, gene, score)
+tdata
 
+t(tdata)
 
 ## Lecture 8. Aggregating data 
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
@@ -439,21 +456,21 @@ describe(grade[vars])
 
 # Create sample of 20 random integers from a vector
 #with replacement
-x <- sample(1:1000, 20, replace=TRUE)
+sp <- sample(1:100, 10, replace=TRUE)
 
-print(x)
+print(sp)
 
 #example 2
 #sample range lies between 1 to 5
-x<- sample(1:5)
+x<- sample(1:5, replace=TRUE)
 #prints the samples
 x
 
 #example 3
 #sample n numbers, where n larger than length of source vector
-x<- sample(1:5,10,replace=TRUE)
+sp<- sample(1:5,10,replace=TRUE)
 #prints the samples
-x
+sp
 
 
 #set.seed() - set.seed function will produce the same sequence 
@@ -465,6 +482,10 @@ x
 #with replacement
 
 row_vec <- sample(1:nrow(mtcars), 20, replace = TRUE)
+
+data(mtcars)
+car_sp <- mtcars[sample(1:nrow(mtcars), 10, replace = FALSE),]
+car_sp
 
 row_vec
 print(mtcars[row_vec, ])

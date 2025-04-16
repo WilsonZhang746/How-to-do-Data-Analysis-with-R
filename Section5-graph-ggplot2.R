@@ -95,6 +95,7 @@ ggplot(data = Income,
 
 
 ##Lecture 3. Using Scales in ggplot2
+library(ggplot2)
 
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 ##set colClasses in read.table() to create a data frame
@@ -106,6 +107,7 @@ Income$Gender<-as.factor(Income$Gender)
 Income$Region<-as.factor(Income$Region)
 Income$Married<-as.factor(Income$Married)
 Income$Job<-as.factor(Income$Job)
+
 # change the x- and y-axis scaling and the 
 #colors representing males and females
 ggplot(data = Income,
@@ -143,7 +145,20 @@ ggplot(
 
 
 
-##5. Using facets in ggplot2
+##Lecture 4. Using facets in ggplot2
+library(ggplot2)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
+Income <- read.table("Income.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+Income
+Income$Race<-as.factor(Income$Race)
+Income$Gender<-as.factor(Income$Gender)
+Income$Region<-as.factor(Income$Region)
+Income$Married<-as.factor(Income$Married)
+Income$Job<-as.factor(Income$Job)
+
 # colors representing males and females
 # and Salaries are printed in dollar format from scale package.
 #facet used for different occupations.
@@ -170,7 +185,20 @@ ggplot(
 
 
 
-##6. Formatting labels
+##Lecture 5. Formatting labels
+library(ggplot2)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
+Income <- read.table("Income.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+Income
+Income$Race<-as.factor(Income$Race)
+Income$Gender<-as.factor(Income$Gender)
+Income$Region<-as.factor(Income$Region)
+Income$Married<-as.factor(Income$Married)
+Income$Job<-as.factor(Income$Job)
+
 # separate graphs (facets) for each of five occupations
 # formatting titles, subtitle, legend, caption.
 ggplot(
@@ -186,7 +214,7 @@ ggplot(
   facet_wrap(~Job) +
   labs(title = "Relationship between Years of experience and Salary",
        subtitle = "A youtube course for R beginner",
-       caption = "source: http://www.youtube.com/@easydatascience2508",
+       caption = "source: http://www.youtube.com/@rprogramming32",
        x = " Years of Experience",
        y = "Yearly Income",
        color = "Gender", shape = "Gender", linetype = "Gender") +
@@ -202,7 +230,20 @@ ggplot(
 
 
 
-## 7. Formulate themes in ggplot()
+## Lecture 6. Formulate themes in ggplot()
+
+library(ggplot2)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
+Income <- read.table("Income.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+Income
+Income$Race<-as.factor(Income$Race)
+Income$Gender<-as.factor(Income$Gender)
+Income$Region<-as.factor(Income$Region)
+Income$Married<-as.factor(Income$Married)
+Income$Job<-as.factor(Income$Job)
 #a theme that produced a white background and 
 #light grey reference lines
 
@@ -232,8 +273,19 @@ ggplot(data = Income,
 
 
 
-##8. ggplot2 graph as an object
-#Income<-Income[Income$Salary<40,]
+##Lecture 7. ggplot2 graph as an object and Saving graph
+library(ggplot2)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("numeric","numeric" ,"character", "character", "character", "character", "numeric","numeric", "character")
+Income <- read.table("Income.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+Income
+Income$Race<-as.factor(Income$Race)
+Income$Gender<-as.factor(Income$Gender)
+Income$Region<-as.factor(Income$Region)
+Income$Married<-as.factor(Income$Married)
+Income$Job<-as.factor(Income$Job)
 #step 1 to plot a scatter plot
 plot1<-ggplot(data = Income, mapping = aes(x = Years, y = Salary)) + geom_point(size = 3, color = "blue")
 plot1   #to pring plot1
@@ -244,10 +296,7 @@ plot2   #to pring plot2
 
 
 
-
-
-
-##9. Saving graphs
+#. Saving graphs
 ggsave(file="testgraph.png", plot=plot2, width=5, height=4)
 
 
@@ -260,16 +309,17 @@ ggsave(file="testgraph.png", plot=plot2, width=5, height=4)
 
 
 
-##10.Bar charts
+##Lecture 8.Bar charts
 library(ggplot2)
 options(digits = 2)  #set the number of digits printed
 setwd("d:\\RStatistics-Tutorial")   # to set working directory
 #create a grade data frame
 vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+
 grade
 
-library(ggplot2)
+
 #Simple vertical bar chart
 ggplot(grade, aes(x=Gender)) + geom_bar() +
   labs(title="Simple Bar chart",                 
@@ -315,15 +365,24 @@ ggplot(grade, aes(x=Gender, fill=Country)) +
 
 
 
-## 11. Pie charts  
+## Lecture 9. Pie charts  
 #install packages 'ggpie'
 #if devtools not installed, should install devtools first
-#not work under R-3.5.2
-if(!require(remotes)) install.packages("remotes")
-devtools::install_github("rkabacoff/ggpie")
+#not work 
+
+
 
 library(ggplot2)
 library(ggpie)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+#create a grade data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade$Gender<-as.factor(grade$Gender)
+grade
+
+
 ggpie(grade, Gender)
 
 #pie chart displaying the distribution of countries
@@ -352,9 +411,16 @@ ggpie(grade, Country, Gender,
 
 
 
-##12. Histograms
+##10. Histograms
 library(ggplot2)
 library(scales)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+#create a grade data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade$Gender<-as.factor(grade$Gender)
+grade
 #simple histogram
 ggplot(grade, aes(x=Physics)) + 
   geom_histogram() +
@@ -429,6 +495,8 @@ ggplot(cars, aes(x=Cylinders, y=cty, fill=Year)) +
 
 
 
+
+
 ###14. Kernel density plots
 library(ggplot2)
 data(mpg)
@@ -476,6 +544,8 @@ ggplot(cars2008, aes(x=cty, fill=Cylinders)) +
   geom_density(alpha=.4) + 
   labs(title="Fuel Efficiecy by Number of Cylinders", 
      x = "City Miles per Gallon")
+
+
 
 
 
@@ -533,7 +603,18 @@ ggplot(diamonds, aes(x=cut, y=price)) +
   stat_summary(fun.y="mean", geom="point", size=2, color="red")
 
 
-
+#we’ll add violin plots to the box plots
+library(ggplot2)
+cars <- mpg[mpg$cyl != 5, ]
+cars$Cylinders <- factor(cars$cyl)
+ggplot(cars, aes(x=Cylinders, y=cty)) +
+  geom_boxplot(width=0.2,
+               fill="green") +
+  geom_violin(fill="gold",
+              alpha=0.3) +
+  labs(x="Number of Cylinders",
+       y="City Miles Per Gallon",
+       title="Violin Plots of Miles Per Gallon")
 
 
 
@@ -906,7 +987,7 @@ swiss <- swiss[order(swiss$Education_z), ]
 swiss$Provence <- factor(swiss$Provence,
                            levels = swiss$Provence)
 
-
+head(swiss)
 
 # Diverging Barcharts
 ggplot(swiss, aes(x=`Provence`, y=Education_z, label="Relative Score in
@@ -970,6 +1051,7 @@ plot_ly(sample_data) %>%
 sample_data <- data.frame(company= c('Company1', 'Company2', 'Company3', 'Company4','Company5'),
                           value1= c(25,30,20,25,40),value2= c(15,40,10,35,34))
 
+sample_data 
 # create pie chart using plot_ly() function
 plot_ly(sample_data) %>%
   add_pie(labels = ~`company`, values = ~`value1`,
@@ -1109,6 +1191,7 @@ data <- mtcars[,c('mpg','hp','drat','qsec')]
 
 data <- cor(data)
 
+#to get long form 
 data1 <- melt(data)
 
 ggplot(data1, aes(x = Var1, y = Var2, fill = value)) +

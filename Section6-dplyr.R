@@ -1,5 +1,5 @@
 #course: Beginning using R for data analysis
-#by https://www.youtube.com/@easydatascience2508
+#by https://www.youtube.com/@rprogramming32
 #Data management with dplyr
 #
 #------------------------------------------------------------#
@@ -140,6 +140,7 @@ more.frequent.no.of.gears.and.low.horsepower <- mtcars %>%
 table(more.frequent.no.of.gears.and.low.horsepower$gear)
 
 
+
 #Filter by Column Name Using “starts with”
 names(iris)
 #records are selected where the column name starts with an “S”
@@ -179,7 +180,7 @@ msleep.over.5
 
 
 
-### Lecture 2. Arange function of Dplyr in R
+### Lecture 2. Arrange function of Dplyr in R
 library(tidyverse)  #OR: library(dplyr)
 msleep <- ggplot2::msleep
 msleep[,1:4]
@@ -343,6 +344,11 @@ df
 #that a function will accept any number of arguments:
 df.fix.alpha <- df %>% mutate_if(is.numeric, coalesce, ... = 0)
 df.fix.alpha
+
+
+
+
+
 
 
 
@@ -689,6 +695,7 @@ team.info.and.or.grades
 #Note that DPLYR is smart enough to understand that “names”
 #is a common key. Frieda has no grades so is not included in 
 #the output:
+#keeping just columns from x.
 
 #Create first dataframe:
 names = c("Sally","Tom","Frieda","Alfonzo")
@@ -713,6 +720,7 @@ team.info.with.grades
 #anti join, return all rows from x where there are no matching 
 #values in y, keeping just columns from x. 
 #Create first dataframe:
+#it is like the opposite of a semi_join()
 names <- c("Sally","Tom","Frieda","Alfonzo")
 team.scores <- c(3,5,2,7)
 team.league <- c("alpha","beta","gamma", "omicron")
@@ -771,11 +779,15 @@ df %>%
 
 #Load the msleep dataframe from the package ggplot2:
 msleep <- ggplot2::msleep
+
+msleep
 nrow(msleep) #initially 83 rows
 
 #Rows 6–83 are dropped
 msleep.only.first.5 <- slice(msleep, -6:-n())
 #Now only the first five rows are retained
+
+msleep.only.first.5
 nrow(msleep.only.first.5)
 
 
@@ -1049,6 +1061,7 @@ f
 #First entry:
 salary.description <- c("Golden parachute type","Well to do",
                         "Average","Below average", "bring date seeds instead of flowers")
+salary.description
 first(salary.description)
 
 #Last entry:
@@ -1064,6 +1077,7 @@ nth(salary.description,2)
 #Count Distinct Values using n_distinct()
 
 a.vector <- c(22,33,44,1,2,3,3,3,4)
+a.vector
 original.length <- length(a.vector)
 original.length
 
@@ -1098,7 +1112,7 @@ x
 x1 <- c(23,4,51,NA,9)
 x1
 
-x2 <- coalesce(x,999)
+x2 <- coalesce(x1,999)
 x2
 
 
@@ -1790,6 +1804,242 @@ df_log_sqrt <- df %>%
 
 
 df_log_sqrt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 23. Reorder the column of dataframe using select()
+### and arrange() of Dplyr
+
+# load the package
+library(dplyr)
+
+# create the dataframe with three columns
+# name, income and cost with 6 rows
+familymember <- data.frame(
+  Name=c("Wilson", "Dudu", "Maomao", "Miaomiao","Mico","Miaomiao"),
+  Income=c(300, 500, 200, 600,300,600),
+  Cost=c(200, 250, 100, 380,150,320))
+
+print(familymember)
+
+
+
+# Example 1: Using select() method
+# We are going to use a select() method to reorder columns.
+
+# Syntax: select(dataframe,columns)
+
+#Here we are rearranging the dataframe(Name, Income,Cost) 
+#to (Income,Cost, Name)
+
+
+
+
+print("After reordering: ")
+
+# reorder the columns using select
+new_data <- select(familymember, Income, Cost, Name)
+
+
+new_data 
+
+
+#Example 2: Rearrange the column of the dataframe by column position.
+#Here, we will rearrange the columns using the index/position
+#of the column. So we will use select method to do this.
+
+#Syntax: select(dataframe.index_positions)
+
+#Here we are rearranging to different positions.
+
+
+
+
+print("reorder the column with position")
+
+# reorder the columns with column positions
+# using select
+new_data <- print(select(familymember,2,3,1))
+
+
+
+#Example 3: Rearrange or Reorder the column name alphabetically
+#Here we are using order() function along with select() function
+#to rearrange the columns in alphabetical order. So we will 
+#order the columns using colnames function.
+
+# Syntax: dataframe %>% select(order(colnames(dataframe)))
+
+#Here we are rearranging the data based on column names in alphabetical order.
+
+
+
+print("Reorder dataframe")
+
+# rearrange the columns in alphabetic order
+familymember %>% select(order(colnames(familymember)))
+
+familymember 
+
+#Example 4: Rearrange or Reorder the column name in alphabetically
+#reverse order
+#so we will order the columns using colnames function in reverse.
+
+#Syntax: 
+
+# dataframe %>% select(order(colnames(dataframe),decreasing=TRUE))
+
+#Here we are rearranging the data based on column names in 
+#alphabetical order in reverse.
+
+print("Actual dataframe")
+
+
+# rearrange the columns in reverse alphabetic order
+familymember %>% select(order(colnames(familymember),
+                      decreasing = TRUE))
+
+
+
+#Example 5: Move or shift the column to the First position/ 
+#last position in R
+#We are going to use everything() method to shift the column to first,
+#so in this way, we can rearrange the dataframe.
+
+#Syntax: dataframe %>% select(column_name, everything())
+
+#R program to shift the Cost column as first
+
+
+print("Reorder dataframe")
+
+# getting department column as first
+familymember %>% select(Cost, everything())
+
+
+
+#Example 6: Using dplyr arrange()
+#Here we are going to rearrange the rows based on a particular 
+#column in ascending order using arrange() function
+
+#Syntax: dataframe %>% arrange(column_name)
+
+#R program to rearrange rows based on Income column
+
+
+print("Reorder dataframe")
+
+# arrange the rows based on department column
+familymember %>% arrange(Income)
+
+
+#Method 7: Using dplyr arrange() and des() method
+#Here we are going to rearrange the rows based on a particular column
+#in ascending order using arrange() function along with desc() function.
+
+#Syntax: dataframe %>% arrange(desc(column_name))
+
+
+print("Reorder dataframe")
+
+# arrange the rows based on Income column in descending order
+familymember %>% arrange(desc(Income))
+
+
+#Method 8: Using arrange_all() function in R dplyr
+#Here we are going to arrange/ reorder the rows based on multiple 
+#variables in the dataframe, so we are using arrange_all() function
+
+#Syntax: arrange_all(dataframe)
+
+
+print("Reorder dataframe")
+
+# rearrange multiple columns
+arrange_all(familymember)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Lecture 24. Mutating column using rowSums() of dplyr in R
+
+# Example 1.  create a dataframe with a matrix with 3 columns – 
+#X1, X2, X3, and all columns are selected and their row sums 
+#are computed.
+# load the dplyr library
+library("dplyr")
+
+# creating the dataframe
+# from the matrix
+data_frame <- data.frame(matrix(rnorm(32), 8, 4))
+
+print("Original DataFrame")
+print(data_frame)
+
+# computing row sums
+data_mod <- data_frame %>% mutate(row_sum=rowSums(
+  select_(., "X1", "X2", "X3", "X4")))
+
+
+
+# printing modified dataframe
+print("Modified DataFrame")
+print(data_mod)
+
+
+# example 2. rowSums of X1 and X3 are computed
+# load the package
+library("dplyr")
+
+# creating the dataframe
+data_frame <- data.frame(matrix(rnorm(30), 10, 3),
+                          stringsAsFactors=FALSE)
+
+print("Original DataFrame")
+print(data_frame)
+
+# computing row sums
+data_mod <-
+  data_frame %>%
+  mutate(row_sum=rowSums(select(., .dots=all_of(c("X1", "X2")))))
+
+# printing modified dataframe
+print("Modified DataFrame")
+print(data_mod)
 
 
 

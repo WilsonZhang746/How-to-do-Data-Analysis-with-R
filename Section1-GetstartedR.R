@@ -25,6 +25,9 @@ load("imagefile")  # load a workspace
 
 # Working with packages
 .libPaths()
+
+search()   #tells you which packages are loaded and ready to use.
+
 install.packages("lavaan")    #install package
 update.packages("lavaan")     #update package
 installed.packages()
