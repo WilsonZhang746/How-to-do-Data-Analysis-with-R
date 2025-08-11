@@ -819,3 +819,28 @@ cat("The zero occurs at", 2 * A, "radians.", "\n")
 
 
 
+
+###  Removing NAs from a Data Frame
+df <- data.frame(
+  x = c(1, NA, 3, 4, 5),
+  y = c(1, 2, NA, 4, 5)
+)
+df
+
+colSums(df)
+
+
+df_new <- na.omit(df)
+
+df_new 
+
+cumsum(na.omit(df_new))
+
+colSums(df_new)
+
+
+
+
+
+
+

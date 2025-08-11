@@ -810,3 +810,45 @@ print.test <- function(x) {
 
 print(df1)
 
+
+
+
+
+
+### Applying a Function to Each List Element
+
+library(tidyverse)
+lst <- list(
+  a = c(1,2,3),
+  b = c(4,5,6)
+)
+
+
+A <- lst %>%
+  map(mean)
+
+
+
+fun1 <- function(x) {
+  if (x > 1) {
+    1
+  } else {
+    "Less Than 1"
+  }
+}
+fun1(5)
+
+fun1(0.5)
+
+
+lst <- list(.5, 1.5, .9, 2)
+
+B <- map(lst, fun1)
+
+
+
+
+
+
+
+
