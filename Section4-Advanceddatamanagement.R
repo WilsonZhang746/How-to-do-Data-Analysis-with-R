@@ -850,5 +850,48 @@ B <- map(lst, fun1)
 
 
 
+###  Applying a Function to Every Row of a Data Frame
+library(dplyr)
+df <- data.frame(mn = c(1, 2, 3),
+                 mx = c(8, 13, 18),
+                 rng = c(1, 2, 3))
+
+fun <- function(a, b, c) {
+  sum(seq(a, b, c))
+}
+
+df %>%
+  rowwise %>%
+  mutate(output = fun(a = mn, b = mx, c = rng))
 
 
+
+
+
+## Applying a Function to Every Column of an object 
+# For a matrix, use the apply function
+# apply(mat, 2, fun)
+
+mat <- matrix(c(1, 3, 2, 5, 4, 6), 2, 3)
+colnames(mat) <- c("t1", "t2", "t3")
+mat
+
+# Compute the mean of every column
+apply(mat, 2, mean) 
+
+
+#For a data frame, use the map_df function from purrr:
+#  df2 <- map_df(df, fun)
+
+setwd("d:\\RStatistics-Tutorial")   # to set working directory
+
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+apply(grade[,7:9],2,mean)
+
+library(purrr)
+
+map_df(grade[,7:9],mean)
