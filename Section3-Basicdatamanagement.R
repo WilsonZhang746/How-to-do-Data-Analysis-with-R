@@ -834,13 +834,32 @@ df_new <- na.omit(df)
 
 df_new 
 
-cumsum(na.omit(df_new))
+cumsum(df_new)
 
 colSums(df_new)
 
 
 
 
+
+
+### Creating a New Column Based on Some Condition using mutate()
+
+#df %>%
+#  mutate(
+#    new_field = case_when(my_field == "something" ~ "result",
+#                          my_field != "something else" ~ "other result",
+#                          TRUE ~ "all other results")
+library(dplyr)
+
+df <- data.frame(vals = 1:10)
+
+df_new <- df %>%
+  mutate(new_vals = case_when(vals <= 3 ~ "3 or less",
+                              vals > 3 & vals <= 6 ~ "3 to 6",
+                              TRUE ~ "over 6"))
+
+df_new
 
 
 
