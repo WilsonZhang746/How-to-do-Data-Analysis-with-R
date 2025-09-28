@@ -11,7 +11,7 @@ b <- c("one", "two", "three") # character
 typeof(b)
 
 c <- c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE) # logical
-
+typeof(c)
 
 #seq() function for creating
 # a sequence of continuous values.
@@ -54,6 +54,7 @@ M <- c(8, 10, 2, 5)
 # set NULL to the vector
 M <- NULL          #alternatively you can use rm(M)
 cat('Output vector', M)
+
 
 
 
@@ -215,6 +216,10 @@ pdata
 
 
 
+
+
+
+
 ## Tibble
 #create a tibble from an existing data frame.
 library(tibble)
@@ -299,7 +304,7 @@ pdata$score <- score
 #c(2,1) refers to the numeric values in the vector
 #c("good","bad") refers to c(2,1) accordingly.
 #all the values not in c(2,1) will be transformed to NA
-pdata$score <- factor(score, levels= c(2,1),labels=c("good","bad"))
+pdata$score <- factor(score, levels= c(3,2,1),labels=c("perfect","good","bad"))
 
 pdata
 table(pdata$score)
@@ -967,6 +972,13 @@ A%*%solve(A)
 
 
 
+
+
+
+
+
+
+
 #Listing Variables using ls()
 x <- 10
 y <- 50
@@ -979,3 +991,114 @@ ls.str()
 
 #remove all variables in working space
 rm(list = ls())
+
+
+
+
+
+
+## Creating Sequences
+
+#Use an n:m expression to create the simple 
+#sequence n, n+1, n+2, …, m, with increment 1
+1:5
+A <- 1:5
+A
+
+#Use the seq function for sequences with an increment 
+#other than 1:
+seq(from = 1, to = 5, by = 2)
+B <- seq(from = 1, to = 5, by = 2)
+B
+
+#Use the rep function to create a series of repeated values:
+rep(1, times = 5)
+rep(1, 5)
+
+
+
+
+
+
+
+###Selecting Vector Elements
+#Use square brackets to select vector elements by 
+#their position
+
+fib <- c(0, 1, 1, 2, 3, 5, 8, 13, 21, 34)
+fib
+fib[1]
+fib[2]
+fib[3]
+
+#you can select multiple elements at once.
+fib[1:3]         # Select elements 1 through 3
+fib[4:9]         # Select elements 4 through 9
+
+#And indexing vector needn’t be a simple sequence,
+fib[c(1, 2, 4, 8)]
+
+#R interprets negative indexes to mean *exclude* a
+#value. An index of –1,
+fib[-1]           # Ignore first element
+fib[-(1:3)]       # exclude first three elements
+
+#uses a logical vector to select elements from
+#a data vector.
+fib[fib < 10]          # elements less than 10
+fib[fib %% 2 == 0]     # select the even elements
+
+
+
+
+#Performing Vector Arithmetic
+v <- c(11, 12, 13, 14, 15)
+w <- c(1, 2, 3, 4, 5)
+v + w
+
+v - w
+
+v * w
+
+v / w
+
+
+w^v
+
+2^w
+
+w + 2
+
+mean(w)
+
+sd(w)
+
+sqrt(w)
+
+log(w)
+
+sin(w)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
