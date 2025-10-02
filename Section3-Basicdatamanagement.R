@@ -850,6 +850,7 @@ colSums(df_new)
 #    new_field = case_when(my_field == "something" ~ "result",
 #                          my_field != "something else" ~ "other result",
 #                          TRUE ~ "all other results")
+
 library(dplyr)
 
 df <- data.frame(vals = 1:10)
@@ -862,4 +863,24 @@ df_new <- df %>%
 df_new
 
 
+
+
+
+
+
+### Concatenating strings in R
+paste("Everybody", "loves", "stats.")
+
+
+paste("Everybody", "loves", "stats.", sep = "-")
+
+paste("Everybody", "loves", "stats.", sep = "")
+
+paste0("Everybody", "loves", "stats.")
+
+
+paste("The square root of twice pi is approximately", sqrt(2*pi))
+
+stooges <- c("Moe", "Larry", "Curly")
+paste(stooges, "loves", "stats.")
 
