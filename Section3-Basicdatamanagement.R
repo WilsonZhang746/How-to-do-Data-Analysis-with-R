@@ -884,3 +884,45 @@ paste("The square root of twice pi is approximately", sqrt(2*pi))
 stooges <- c("Moe", "Larry", "Curly")
 paste(stooges, "loves", "stats.")
 
+
+
+
+
+
+
+
+
+### Extracting Substrings using substr()
+
+#The substr function takes a string, a starting point,
+#and an ending point. It returns the substring between
+#the starting and ending points:
+
+# Extract first 4 characters
+substr("Statistics", 1, 4) 
+
+# Extract last 4 characters
+substr("Statistics", 7, 10) 
+
+
+#substr lets the first argument be a vector of strings. 
+#In that case, it applies itself to every string and returns 
+#a vector of substrings:
+
+ss <- c("Moe", "Larry", "Curly")
+
+# Extract first 3 characters of each string
+substr(ss, 1, 3)          
+
+
+cities <- c("New York, NY", "Los Angeles, CA", "Peoria, IL")
+substr(cities, nchar(cities) - 1, nchar(cities))
+
+
+
+
+
+
+
+
+
