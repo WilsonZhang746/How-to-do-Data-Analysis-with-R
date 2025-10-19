@@ -923,6 +923,32 @@ substr(cities, nchar(cities) - 1, nchar(cities))
 
 
 
+### Splitting a String According to a Delimiter
+###using strsplit(string, delimiter))
 
+path <- "/home/mike/data/trials.csv"
+
+strsplit(path, "/")
+
+#strsplit returns a list and that each element of the 
+#list is a vector
+#you can pop out the element like this
+
+strsplit(path, "/")[[1]]
+
+
+#This example splits three filepaths and returns a 
+#three-element list:
+
+paths <- c(
+  "/home/mike/data/trials.csv",
+  "/home/mike/data/errors.csv",
+  "/home/mike/corr/reject.doc"
+)
+strsplit(paths, "/")
+
+
+
+substrings.
 
 
