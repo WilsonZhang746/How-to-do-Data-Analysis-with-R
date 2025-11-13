@@ -952,3 +952,32 @@ strsplit(paths, "/")
 substrings.
 
 
+
+
+
+
+
+
+
+
+
+
+### Replacing Substrings using sub() and gsub()
+
+#The sub() function finds the first instance of the old 
+#substring within string and replaces it with the new substring:
+
+str <- "Curly is the smart one. Curly is funny, too."
+sub("Curly", "Moe", str)
+
+
+#gsub() replaces all instances of the substring 
+
+gsub("Curly", "Moe", str)
+
+
+
+
+
+
+
