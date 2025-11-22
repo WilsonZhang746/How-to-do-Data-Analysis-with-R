@@ -981,3 +981,32 @@ gsub("Curly", "Moe", str)
 
 
 
+
+
+
+
+
+### Generating Pairwise Combinations of Strings
+
+
+#Suppose we have four test sites and three treatments:
+locations <- c("NY", "LA", "CHI", "HOU")
+treatments <- c("T1", "T2", "T3")
+#We can apply outer and paste to generate all combinations of 
+#test sites and treatments:
+  
+m <- outer(locations, treatments, paste, sep = "-")
+
+#If you want the combinations in a vector instead,
+#flatten the matrix using the as.vector function
+
+as.vector(outer(locations, treatments, paste, sep = "-"))
+
+
+
+#you can use expand.grid to get a pair of vectors representing all combinations:
+n <- expand.grid(locations, treatments)
+
+n$Var1
+
+
