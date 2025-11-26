@@ -1010,3 +1010,41 @@ n <- expand.grid(locations, treatments)
 n$Var1
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+### Converting a String into a Date
+
+#You have the string representation of a date, such as
+#"2018-12-31", and you want to convert that into a 
+#Date object
+
+#By default, as.Date assumes the string looks like yyyy-mm-dd.
+#so this works
+as.Date("2018-12-31")
+
+
+#this does not work
+as.Date("12/31/2018")
+
+
+#Here is the correct way to convert an American-style date:
+as.Date("12/31/2018", format = "%m/%d/%Y")
+
+
+
+
+
+
+
+
+
