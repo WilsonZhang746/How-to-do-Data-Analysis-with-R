@@ -1022,7 +1022,7 @@ n$Var1
 
 
 
-### Converting a String into a Date
+### Converting a String into a Date Object
 
 #You have the string representation of a date, such as
 #"2018-12-31", and you want to convert that into a 
@@ -1039,6 +1039,38 @@ as.Date("12/31/2018")
 
 #Here is the correct way to convert an American-style date:
 as.Date("12/31/2018", format = "%m/%d/%Y")
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Converting a Date into a String
+#Use either format or as.character
+Sys.Date()
+
+format(Sys.Date())
+
+as.character(Sys.Date())
+
+
+#Both functions allow a format argument that controls 
+#the formatting. Use format="%m/%d/%Y" to get 
+#American-style dates
+
+format(Sys.Date(), format = "%m/%d/%Y")
+
+
+
+
+
 
 
 
