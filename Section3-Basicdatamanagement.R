@@ -1077,6 +1077,42 @@ format(Sys.Date(), format = "%m/%d/%Y")
 
 
 
+### Converting Year, Month, and Day into a Date
+
+#Use the ISOdate function:
+#  ISOdate(year, month, day)
+#The result is a POSIXct object that you can 
+#convert into a Date object:
+
+year <- 2018
+month <- 12
+day <- 31
+
+as.Date(ISOdate(year, month, day))
+
+#Trying to convert an invalid date results in NA:
+ISOdate(2013, 2, 29)      # Oops! 2013 is not a leap year
+
+
+#ISOdate can process entire vectors of years, months, 
+#and days,
+
+years <- c(2010, 2011, 2012, 2014)
+months <- c(1, 1, 1, 1, 1)
+days <- c(15, 21, 20, 18, 17)
+ISOdate(years, months, days)
+
+as.Date(ISOdate(years, months, days))
+
+
+as.Date(ISOdate(years, 1, days))
+
+
+
+
+
+
+
 
 
 
