@@ -1115,4 +1115,30 @@ as.Date(ISOdate(years, 1, days))
 
 
 
+### Getting the Julian Date
+
+#Given a Date object, you want to extract the Julian 
+#date—which is, in R, the number of days since January 1, 1970.
+
+#Either convert the Date object to an integer or use the 
+#julian function
+
+
+d <- as.Date("2019-03-15")
+as.integer(d)
+
+
+jd <- julian(d)
+jd
+
+
+
+
+
+
+
+
+
+
+
 
