@@ -1139,6 +1139,25 @@ jd
 
 
 
+### Counting the Number of Combinations
+#counting combinations:
+#the number of distinct subsets of size k that can be 
+#created from n items.
+#The number is given by n!/r!(n – r)!
+
+
+## How many ways can we select 3 items from 5 items?
+
+choose(5, 3)
+
+
+# How many ways can we select 3 items from 50 items?
+
+choose(50, 3)
+
+
+
+
 
 
 
