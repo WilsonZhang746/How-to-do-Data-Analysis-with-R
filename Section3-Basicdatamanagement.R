@@ -1161,3 +1161,57 @@ choose(50, 3)
 
 
 
+
+
+
+
+
+
+
+
+
+###Summary and counting data using summary(), aggregate() 
+### and table()
+
+#summary
+x = c( rep(1,100) , rep(2,200) , rep(3,300) )  # 100 1's, 200 2's, 300 3's
+summary(x)
+xf = factor(x)
+summary(xf)
+
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-NA.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+str(grade)
+
+summary(grade)
+
+
+
+setwd("d:\\RStatistics-Tutorial") 
+HGNdf = read.csv( "HGN.csv" )
+str(HGNdf)
+
+#aggregate
+aggregate( x=HGNdf$Number , by=list(HGNdf$Gender,HGNdf$Hair) , FUN=median )
+
+# explicitly name the variables:
+aggregate( x=list(Number=HGNdf$Number) ,
+           by=list(Gender=HGNdf$Gender,Hair=HGNdf$Hair) , FUN=median )
+# use formula format:
+aggregate( Number ~ Gender + Hair , data=HGNdf , FUN=median )
+
+# Table of counts:
+# Using aggregate, to produce one count per row with factor levels each row:
+aggregate( x=list(Count=rep(1,NROW(HGNdf))) , # column of 1's
+           by=list(Gender=HGNdf$Gender,Hair=HGNdf$Hair) , FUN=sum )
+
+
+# Using table, to produce several counts per row with implicit factor levels:
+
+table(HGNdf$Hair)
+
+table(list(Gender=HGNdf$Gender,Hair=HGNdf$Hair))
+
+
