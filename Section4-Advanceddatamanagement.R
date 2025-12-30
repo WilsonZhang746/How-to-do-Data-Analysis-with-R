@@ -890,8 +890,70 @@ vartype<-c("character", "character", "character", "character", "character", "num
 grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
 grade
 
+str(grade)
 apply(grade[,7:9],2,mean)
 
 library(purrr)
 
 map_df(grade[,7:9],mean)
+
+
+
+
+
+
+
+
+
+
+### Reshape Long and wide format using 
+### melt() and dcast() 
+
+
+library(reshape2)
+
+
+# Create a sample wide data frame
+wide_df <- data.frame(
+  ID = c(1, 2, 3),
+  Name = c("Alice", "Bob", "Charlie"),
+  Test1 = c(85, 72, 91),
+  Test2 = c(88, 75, 95),
+  Test3 = c(90, 70, 89)
+)
+
+print("Wide Format Data:")
+print(wide_df)
+
+
+# Use melt() to convert it to long format: 
+
+long_df <- melt(
+  wide_df,
+  id.vars = c("ID", "Name"),          # Columns to keep as identifiers
+  variable.name = "Test_Type",        # Name for the new column holding the original column names (Test1, Test2, etc.)
+  value.name = "Score"                # Name for the new column holding the data values (scores)
+)
+
+print("Long Format Data:")
+print(long_df)
+
+
+
+#Reshaping Long to Wide using dcast() 
+
+wide_df_back <- dcast(
+  long_df,
+  ID + Name ~ Test_Type,
+  value.var = "Score"
+)
+
+print("Back to Wide Format Data:")
+print(wide_df_back)
+
+
+
+
+
+
+
