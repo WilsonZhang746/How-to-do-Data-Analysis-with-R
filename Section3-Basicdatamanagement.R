@@ -1215,3 +1215,74 @@ table(HGNdf$Hair)
 table(list(Gender=HGNdf$Gender,Hair=HGNdf$Hair))
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Difference between apply, sapply, and lapply
+
+# Example: Calculate the mean of each column in a matrix
+mat <- matrix(1:9, nrow = 3, ncol = 3)
+apply(mat, MARGIN = 2, FUN = mean)  # Output: [1] 2 5 8 (a vector)
+
+
+
+#lapply(): 
+#This function applies a function to each element of a list 
+#or vector and always returns the result as a list, 
+#even if the results are single values. 
+
+# Example: Square each number in a list
+numbers <- list(1, 2, 3)
+lapply(numbers, function(x) x^2)  ## Output: [[1]] [1] 1 \n [[2]] [1] 4 \n [[3]] [1] 9 (a list)
+
+
+
+#sapply(): 
+#This is a "user-friendly" wrapper around lapply() 
+#that attempts to simplify the output into the most 
+#appropriate basic data structure, typically a vector or 
+#a matrix, 
+
+# Example: Square each number in a list (sapply simplifies the output)
+numbers <- list(1, 2, 3)
+sapply(numbers, function(x) x^2)   # Output: [1] 1 4 9 (a vector)
+
+#read csv file and crate a data frame
+setwd("d:\\RStatistics-Tutorial")    # to set working directory
+##set colClasses in read.table() to create a data frame
+vartype<-c("character", "character", "character", "character", "character", "numeric","numeric", "numeric","numeric","character")
+grade <- read.table("University-Fullname-full.csv", colClasses=vartype, header=TRUE, sep=",")                                      
+grade
+
+str(grade)
+
+#create a reduced data frame
+score <- grade[,c(7:9)]
+score
+
+#create mean of columns in data frame, using apply()
+A <- apply(score, MARGIN = 2, FUN = mean) #a vector
+
+#create square root of each element of data frame, using lapply()
+B <- lapply(score, function(x) x^0.5)   #a list
+
+#create square root of each element of data frame, using sapply()
+C <- sapply(score, function(x) x^0.5)    #a matrix
+
