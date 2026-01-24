@@ -1286,3 +1286,75 @@ B <- lapply(score, function(x) x^0.5)   #a list
 #create square root of each element of data frame, using sapply()
 C <- sapply(score, function(x) x^0.5)    #a matrix
 
+
+
+
+
+
+
+
+
+
+
+
+
+### Generating Random Numbers and Combinations
+
+
+#generate all combinations of n items taken k at a time.
+items <- 2:5
+k <- 2
+z <- combn(items, k)
+
+z[2,3]
+
+combn(c("T1", "T2", "T3", "T4", "T5"), 3)
+
+
+#generates ten uniform random number between 0 and 1
+runif(10)
+
+#generates ten uniform random number between 15 and 50
+runif(10, min = 15, max =50)
+
+
+mean(runif(1000, min = 15, max =50))
+
+
+
+
+#generates random values from the standard normal distribution:
+rnorm(10)
+
+mean(rnorm(1000))
+
+sd(rnorm(1000))
+
+# Normal variates, mean 100 and SD 15
+rnorm(10, mean = 100, sd = 15)
+
+mean(rnorm(1000, mean = 100, sd = 15))
+
+sd(rnorm(1000, mean = 100, sd = 15))
+
+
+# binomial variates
+rbinom(1, size = 10, prob = 0.3)
+
+rbinom(10, size = 10, prob = 0.3)
+
+mean(rbinom(10, size = 10, prob = 0.3))
+
+
+# Poisson variates
+rpois(10, lambda = 10)
+
+mean(rpois(1000, lambda = 10))
+
+
+
+
+# One exponential variates
+rexp(10, rate = 0.1)
+
+mean(rexp(1000, rate = 0.1))
